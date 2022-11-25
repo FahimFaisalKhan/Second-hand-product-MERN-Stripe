@@ -23,7 +23,7 @@ const Signup = ({ redirectPath, processError }) => {
   const {
     register,
     handleSubmit,
-
+    reset,
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
@@ -82,6 +82,7 @@ const Signup = ({ redirectPath, processError }) => {
       if (res.data.acknowledged) {
         console.log(res.data.acknowledged);
         setUserLoading(false);
+
         toast.success("User Created Successfully");
         navigate(redirectPath, { replace: true });
       }
@@ -165,7 +166,7 @@ const Signup = ({ redirectPath, processError }) => {
                     {...register("role")}
                     type="radio"
                     value="buyer"
-                    checked
+                    checked={!userLoading && true}
                     className="radio checked:bg-primary"
                   />
                 </label>

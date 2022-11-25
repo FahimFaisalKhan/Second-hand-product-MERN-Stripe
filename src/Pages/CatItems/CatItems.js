@@ -10,12 +10,10 @@ const CatItems = () => {
   const { data: catItems } = useLoaderData();
   const { loading } = useContext(MyAuthContext);
 
-  console.log(catItems);
-
   return (
-    <div className="relative min-h-[64.5vh]">
+    <div className="">
       {catItems.map((prod) => {
-        return <CatItem prod={prod} />;
+        return <CatItem key={prod._id} prod={prod} />;
       })}
     </div>
   );

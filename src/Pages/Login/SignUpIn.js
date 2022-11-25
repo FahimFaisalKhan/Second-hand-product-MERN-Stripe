@@ -16,6 +16,7 @@ const SignUpIn = () => {
 
     return parsedError;
   };
+
   return (
     <div className="flex flex-col items-center">
       <Tabs

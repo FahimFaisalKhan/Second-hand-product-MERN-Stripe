@@ -6,7 +6,7 @@ import { MyAuthContext } from "../../contexts/AuthContext";
 
 const Navigation = () => {
   const { user, logOut, loading } = useContext(MyAuthContext);
-  console.log(loading);
+
   const menuItems = (
     <>
       <Menu.Item>

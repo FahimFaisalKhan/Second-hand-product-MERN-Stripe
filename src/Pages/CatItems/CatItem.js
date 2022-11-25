@@ -8,6 +8,8 @@ import BookingModal from "./BookingModal";
 
 const CatItem = ({ prod }) => {
   const today = new Date();
+  const [visible, setVisible] = useState(false);
+  const [itemToBook, setItemToBook] = useState(null);
   const {
     OriginalPrice,
     condition,
@@ -29,11 +31,10 @@ const CatItem = ({ prod }) => {
       const res = await axios.get(
         `http://localhost:5000/user/getSellerName?email=${sellerEmail}`
       );
-      console.log(res.data.name);
+
       return res.data;
     },
   });
-  const [visible, setVisible] = useState(false);
 
   const toggleVisible = () => {
     setVisible(!visible);
@@ -44,7 +45,7 @@ const CatItem = ({ prod }) => {
   return (
     <>
       <Hero key={_id} className="w-full bg-info mb-5 rounded-lg">
-        <Hero.Content className="w-full">
+        <Hero.Content className="w-full justify-between py-32">
           <img
             alt=""
             src={coverImage}
@@ -69,7 +70,10 @@ const CatItem = ({ prod }) => {
               </div>
             </div>
             <Button
-              onClick={toggleVisible}
+              onClick={() => {
+                toggleVisible();
+                setItemToBook(prod);
+              }}
               className="text-base-100 capitalize"
               color="primary"
             >
@@ -79,7 +83,14 @@ const CatItem = ({ prod }) => {
         </Hero.Content>
       </Hero>
 
-      <BookingModal visible={visible} toggleVisible={toggleVisible} />
+      {itemToBook && (
+        <BookingModal
+          itemToBook={itemToBook}
+          setItemToBook={setItemToBook}
+          visible={visible}
+          toggleVisible={toggleVisible}
+        />
+      )}
     </>
   );
 };

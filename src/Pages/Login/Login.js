@@ -6,6 +6,7 @@ import { MyAuthContext } from "../../contexts/AuthContext";
 import { FcGoogle } from "react-icons/fc";
 import Spinner from "../../SharedComponents/Spinner/Spinner";
 import toast from "react-hot-toast";
+import axios from "axios";
 
 const Login = ({ redirectPath, processError }) => {
   const { loginUser, googleSignIn, loading, setLoading } =
@@ -38,8 +39,10 @@ const Login = ({ redirectPath, processError }) => {
     googleSignIn()
       .then((result) => {
         if (result.user) {
-          setLoading(false);
-          navigate(redirectPath, { replace: true });
+          const name = result.user.displayName;
+          const email = result.user.email;
+          const role = "buyer";
+          addUserToDb({ name, email, role });
         }
       })
       .catch((err) => {
@@ -47,6 +50,27 @@ const Login = ({ redirectPath, processError }) => {
         setLoading(false);
         toast.error(parsedError);
       });
+  };
+  const addUserToDb = async (user) => {
+    console.log(user);
+    const { name, email, role } = user;
+    try {
+      const res = await axios.post("http://localhost:5000/users", {
+        name,
+        email,
+        role,
+      });
+      console.log(res.data);
+      if (res.data.acknowledged) {
+        console.log(res.data.acknowledged);
+        setLoading(false);
+        toast.success("User Logged in Successfully");
+        navigate(redirectPath, { replace: true });
+      }
+    } catch (err) {
+      const parsedError = processError(err.message);
+      toast.error(parsedError);
+    }
   };
 
   return (
