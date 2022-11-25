@@ -25,13 +25,15 @@ const DashBoard = ({ children, dashHidden }) => {
           {role === "buyer" && (
             <>
               <li>
-                <Link> My Orders</Link>
+                <Link to={"/dashboard/myorders"}> My Orders</Link>
               </li>
             </>
           )}
-
           {role === "seller" && (
             <>
+              <li>
+                <Link to={"/dashboard/myorders"}> My Orders</Link>
+              </li>
               <li>
                 <Link to={"/dashboard/addproducts"}> Add a Product</Link>
               </li>
@@ -43,8 +45,21 @@ const DashBoard = ({ children, dashHidden }) => {
               </li>
             </>
           )}
+
           {role === "admin" && (
             <>
+              <li>
+                <Link to={"/dashboard/myorders"}> My Orders</Link>
+              </li>
+              <li>
+                <Link to={"/dashboard/addproducts"}> Add a Product</Link>
+              </li>
+              <li>
+                <Link to={"/dashboard/myproducts"}> My Products</Link>
+              </li>
+              <li>
+                <Link to={"/dashboard/mybuyers"}> My Buyers</Link>
+              </li>
               <li>
                 <Link> All sellers</Link>
               </li>

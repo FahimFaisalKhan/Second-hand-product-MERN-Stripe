@@ -17,6 +17,8 @@ import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import AddProduct from "../Pages/DashBoard/AddProduct/AddProduct";
 import MyBuyers from "../Pages/DashBoard/MyBuyers/MyBuyers";
 import SellerRoute from "./SellerRoute/SellerRoute";
+import AdminRoute from "./AdminRoute/AdminRoute";
+import AllSellers from "../Pages/DashBoard/AllSellers/AllSellers";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -73,6 +75,14 @@ export const router = createBrowserRouter(
           }
         />
         <Route path="/dashboard/myorders" element={<MyOrders />} />
+        <Route
+          path="/dashboard/allsellers"
+          element={
+            <AdminRoute>
+              <AllSellers />
+            </AdminRoute>
+          }
+        />
       </Route>
     </>
   )

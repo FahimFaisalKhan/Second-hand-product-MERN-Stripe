@@ -14,7 +14,7 @@ const DashBoardLayout = () => {
           setDashHidden={setDashHidden}
           showDashBoardHam={true}
         />
-        <section className="my-5 px-6">
+        <section className="my-5 px-6 min-h-[100vh]">
           <DashBoard dashHidden={dashHidden}>
             <Outlet />
           </DashBoard>
