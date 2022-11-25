@@ -12,7 +12,7 @@ const Login = ({ redirectPath, processError }) => {
   const { loginUser, googleSignIn, loading, setLoading } =
     useContext(MyAuthContext);
   const navigate = useNavigate();
-
+  console.log(redirectPath);
   const {
     register,
     handleSubmit,
@@ -55,7 +55,7 @@ const Login = ({ redirectPath, processError }) => {
     console.log(user);
     const { name, email, role } = user;
     try {
-      const res = await axios.post("http://localhost:5000/users", {
+      const res = await axios.post("http://localhost:5000/users?social=true", {
         name,
         email,
         role,

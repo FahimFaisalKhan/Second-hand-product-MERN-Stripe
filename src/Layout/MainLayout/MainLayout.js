@@ -9,7 +9,7 @@ const MainLayout = () => {
   return (
     <div>
       <div className="container mx-auto min-h-[100vh]">
-        <Navigation />
+        <Navigation showDashBoardHam={false} />
 
         <Outlet />
       </div>

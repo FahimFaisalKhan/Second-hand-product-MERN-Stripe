@@ -5,7 +5,7 @@ import { MdAddPhotoAlternate } from "react-icons/md";
 import { ImCross } from "react-icons/im";
 import { Button } from "react-daisyui";
 
-const DropZone = ({ file, setFile }) => {
+const DropZone = ({ file, setFile, size }) => {
   const { getRootProps, getInputProps } = useDropzone({
     multiple: false,
     accept: {
@@ -50,16 +50,14 @@ const DropZone = ({ file, setFile }) => {
   useEffect(() => {
     // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
 
-    return () => URL.revokeObjectURL(file.preview);
-  }, [file.preview, file]);
+    return () => URL.revokeObjectURL(file?.preview);
+  }, [file?.preview, file]);
 
   return (
-    <section className="container">
+    <section className={`container w-${size && size}`}>
       <div {...getRootProps()}>
         <input {...getInputProps()} />
-        <label className="label">
-          <span className="label-text">Add Photo</span>
-        </label>
+
         {!file && (
           <div className="flex justify-center border border-dashed py-5">
             <MdAddPhotoAlternate size={45} color={"#0d47a1"} />

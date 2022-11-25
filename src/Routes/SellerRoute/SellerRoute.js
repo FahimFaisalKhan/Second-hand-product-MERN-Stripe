@@ -1,23 +1,25 @@
 import React, { useContext } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import { MyAuthContext } from "../../contexts/AuthContext";
+import { useRole } from "../../hooks/useRole";
 import Spinner from "../../SharedComponents/Spinner/Spinner";
 
-const PrivateRoute = ({ children }) => {
+const SellerRoute = ({ children }) => {
   const { user, loading } = useContext(MyAuthContext);
-  console.log(user);
-  const location = useLocation();
+  const { role, roleLoading } = useRole();
 
-  if (loading) {
+  const location = useLocation();
+  if (loading || roleLoading) {
     return <Spinner size={24} color="primary" />;
   }
-  if (!user) {
+  if (!user || role !== "seller") {
+    console.log(role);
     return (
-      <Navigate to={"/signinup"} state={{ form: location }} replace={true} />
+      <Navigate to={"/signinup"} state={{ from: location }} replace={true} />
     );
   }
-  console.log(user);
+
   return children;
 };
 
-export default PrivateRoute;
+export default SellerRoute;

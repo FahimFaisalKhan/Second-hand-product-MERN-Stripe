@@ -8,7 +8,7 @@ const SignUpIn = () => {
   const [tabValue, setTabValue] = useState("login");
   const location = useLocation();
 
-  const redirectPath = location?.state?.form?.pathName || "/";
+  const redirectPath = location?.state?.form?.pathname || "/";
   const processError = (error) => {
     const parsedError = error
       .slice(error.indexOf("/") + 1, error.indexOf(")"))

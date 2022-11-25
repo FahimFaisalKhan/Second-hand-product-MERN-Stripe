@@ -31,6 +31,7 @@ const Signup = ({ redirectPath, processError }) => {
     setUserLoading(true);
     if (!file) {
       setFileError("File Required");
+      setUserLoading(false);
       return;
     }
 
@@ -78,9 +79,8 @@ const Signup = ({ redirectPath, processError }) => {
         email,
         role,
       });
-
+      console.log(res.data);
       if (res.data.acknowledged) {
-        console.log(res.data.acknowledged);
         setUserLoading(false);
 
         toast.success("User Created Successfully");
@@ -88,6 +88,7 @@ const Signup = ({ redirectPath, processError }) => {
       }
     } catch (err) {
       const parsedError = processError(err.message);
+      setUserLoading(false);
       toast.error(parsedError);
     }
   };
@@ -134,6 +135,9 @@ const Signup = ({ redirectPath, processError }) => {
                 )}
               </div>
               <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Add Photo</span>
+                </label>
                 <DropZone file={file} setFile={setFile} />
                 {fileError && <span className="text-red-500">{fileError}</span>}
               </div>
