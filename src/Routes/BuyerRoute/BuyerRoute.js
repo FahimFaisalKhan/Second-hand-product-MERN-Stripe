@@ -13,7 +13,6 @@ const BuyerRoute = ({ children }) => {
     return <Spinner size={24} color="primary" />;
   }
   if (!user || role !== "buyer") {
-    console.log(role);
     return (
       <Navigate to={"/signinup"} state={{ from: location }} replace={true} />
     );

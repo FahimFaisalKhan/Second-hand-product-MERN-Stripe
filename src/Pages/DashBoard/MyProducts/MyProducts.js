@@ -20,7 +20,6 @@ const MyProducts = () => {
         `http://localhost:5000/myProducts?email=${user?.email}`
       );
 
-      console.log(res.data);
       return res.data;
     },
   });
@@ -63,7 +62,7 @@ const MyProducts = () => {
           {myProds.map((prod, index) => {
             const { _id, name, price, status, advertised } = prod;
             return (
-              <Table.Row>
+              <Table.Row key={_id}>
                 <span>{index + 1}</span>
                 <span>{name}</span>
                 <span>${price}</span>

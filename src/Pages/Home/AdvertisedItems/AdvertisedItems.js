@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import React from "react";
 import { Button, Card } from "react-daisyui";
+import ProductCard from "../../../SharedComponents/ProductCard/ProductCard";
 import SectionDecoration from "../../../SharedComponents/SectionDecoration/SectionDecoration";
 import Spinner from "../../../SharedComponents/Spinner/Spinner";
 
@@ -10,7 +11,7 @@ const AdvertisedItems = () => {
     queryKey: ["advertisedItems"],
     queryFn: async () => {
       const res = await axios.get("http://localhost:5000/advertisedItems");
-      console.log(res.data);
+
       return res.data;
     },
   });
@@ -25,31 +26,9 @@ const AdvertisedItems = () => {
         Featured Collections
       </h1>
 
-      <div className="grid xl:grid-cols-4 gap-4 2xl:gap-10  py-16 sm:px-12">
+      <div className="grid xl:grid-cols-4 gap-4 2xl:gap-10 2xl:gap-y-32  py-16 sm:px-12">
         {advertisedProducts.map((add, index) => {
-          const { name, _id, price, description, coverImage } = add;
-          return (
-            <Card className="bg-neutral p-5">
-              <Card.Image
-                className="h-52 rounded-xl "
-                src={coverImage}
-                alt="Shoes"
-              />
-              <Card.Body className="p-2 mt-3">
-                <Card.Title tag="h2">{name}</Card.Title>
-                <p className="mb-4">
-                  {description.length > 100
-                    ? `${description.slice(0, 100)}...`
-                    : description}
-                </p>
-                <Card.Actions className="justify-end">
-                  <Button className="text-base-100" color="primary">
-                    Buy Now
-                  </Button>
-                </Card.Actions>
-              </Card.Body>
-            </Card>
-          );
+          return <ProductCard key={add._id} product={add}></ProductCard>;
         })}
       </div>
     </div>

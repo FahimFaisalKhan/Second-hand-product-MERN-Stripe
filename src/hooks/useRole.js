@@ -8,7 +8,7 @@ export const useRole = () => {
 
   useEffect(() => {
     const uri = `http://localhost:5000/user/getRole?email=${user?.email}`;
-    console.log(uri);
+
     fetch(uri)
       .then((res) => res.json())
       .then((user) => {

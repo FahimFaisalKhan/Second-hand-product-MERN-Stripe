@@ -9,7 +9,7 @@ import Spinner from "../Spinner/Spinner";
 const Navigation = ({ showDashBoardHam, setDashHidden, dashHidden }) => {
   const { user, logOut, loading } = useContext(MyAuthContext);
   const { role, roleLoading } = useRole();
-  console.log(user?.displayName);
+
   const menuItems = (
     <>
       <Menu.Item>
@@ -17,19 +17,23 @@ const Navigation = ({ showDashBoardHam, setDashHidden, dashHidden }) => {
       </Menu.Item>
       {user && role && (
         <>
-          <Menu.Item>
-            <Link
-              to={
-                role === "buyer"
-                  ? "/dashboard/myorders"
-                  : role === "seller"
-                  ? "/dashboard/myproducts"
-                  : "/dashboard/allsellers"
-              }
-            >
-              Dashboard
-            </Link>
-          </Menu.Item>
+          {roleLoading ? (
+            <Spinner size={5} color="base-100" />
+          ) : (
+            <Menu.Item>
+              <Link
+                to={
+                  role === "buyer"
+                    ? "/dashboard/myorders"
+                    : role === "seller"
+                    ? "/dashboard/myproducts"
+                    : "/dashboard/allsellers"
+                }
+              >
+                Dashboard
+              </Link>
+            </Menu.Item>
+          )}
         </>
       )}
       {!user && (
@@ -142,7 +146,7 @@ const Navigation = ({ showDashBoardHam, setDashHidden, dashHidden }) => {
       </Navbar.Center>
       <Navbar.End className="hidden xl:flex">
         {searchFieldElement}
-        <Menu horizontal className="p-0">
+        <Menu horizontal className="p-0 relative">
           {menuItems}
         </Menu>
       </Navbar.End>

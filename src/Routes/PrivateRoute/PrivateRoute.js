@@ -5,7 +5,7 @@ import Spinner from "../../SharedComponents/Spinner/Spinner";
 
 const PrivateRoute = ({ children }) => {
   const { user, loading } = useContext(MyAuthContext);
-  console.log(user);
+
   const location = useLocation();
 
   if (loading) {
@@ -16,7 +16,7 @@ const PrivateRoute = ({ children }) => {
       <Navigate to={"/signinup"} state={{ form: location }} replace={true} />
     );
   }
-  console.log(user);
+
   return children;
 };
 

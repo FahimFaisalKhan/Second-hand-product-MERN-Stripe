@@ -13,13 +13,13 @@ const SellerRoute = ({ children }) => {
     return <Spinner size={24} color="primary" />;
   }
 
-  if (role === "seller" || role === "admin") {
-    return children;
+  if (!user || role !== "seller") {
+    return (
+      <Navigate to={"/signinup"} state={{ from: location }} replace={true} />
+    );
   }
 
-  return (
-    <Navigate to={"/signinup"} state={{ from: location }} replace={true} />
-  );
+  return children;
 };
 
 export default SellerRoute;

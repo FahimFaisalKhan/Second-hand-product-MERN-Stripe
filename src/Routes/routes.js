@@ -19,6 +19,8 @@ import MyBuyers from "../Pages/DashBoard/MyBuyers/MyBuyers";
 import SellerRoute from "./SellerRoute/SellerRoute";
 import AdminRoute from "./AdminRoute/AdminRoute";
 import AllSellers from "../Pages/DashBoard/AllSellers/AllSellers";
+import BuyerRoute from "./BuyerRoute/BuyerRoute";
+import Payment from "../Pages/Payment/Payment";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -51,6 +53,25 @@ export const router = createBrowserRouter(
       >
         <Route path="/dashboard" element={<div>Welcome To DashBoard</div>} />
         <Route
+          path="/dashboard/myorders"
+          element={
+            <BuyerRoute>
+              <MyOrders />
+            </BuyerRoute>
+          }
+        />
+        <Route
+          path="/dashboard/payment/:pId"
+          loader={({ params }) =>
+            fetch(`http://localhost:5000/getProductById/${params.pId}`)
+          }
+          element={
+            <BuyerRoute>
+              <Payment />
+            </BuyerRoute>
+          }
+        />
+        <Route
           path="/dashboard/myproducts"
           element={
             <SellerRoute>
@@ -74,7 +95,7 @@ export const router = createBrowserRouter(
             </SellerRoute>
           }
         />
-        <Route path="/dashboard/myorders" element={<MyOrders />} />
+
         <Route
           path="/dashboard/allsellers"
           element={

@@ -1,8 +1,11 @@
+import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { Button, Form, Input, Modal } from "react-daisyui";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { MyAuthContext } from "../../contexts/AuthContext";
+import { useRole } from "../../hooks/useRole";
 import Spinner from "../../SharedComponents/Spinner/Spinner";
 
 const BookingModal = ({
@@ -10,33 +13,76 @@ const BookingModal = ({
   toggleVisible,
   itemToBook,
   setItemToBook,
+  refetchBookBtn,
 }) => {
   const { user, loading } = useContext(MyAuthContext);
-  console.log(user.displayName);
-  const [submitDisabled, setSubmitDisabled] = useState(true);
-  const { name: productName, price } = itemToBook;
-  console.log(productName);
+  const { role, roleLoading } = useRole();
+  const [submitLoading, setSubmitLoading] = useState(false);
+  const {
+    name: productName,
+    price,
+    _id: productId,
+    status,
+    contactNumber: sellerPhone,
+    location: sellerLocation,
+    condition,
+    coverImage,
+  } = itemToBook;
+
   const onSubmit = (data) => {
-    console.log(data, errors);
+    console.log(data);
+    setSubmitLoading(true);
+
+    const bookingTime = new Date().toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "numeric",
+    });
+    const bookingItem = {
+      ...data,
+      productId,
+      bookingTime,
+      status,
+      sellerPhone,
+      sellerLocation,
+      condition,
+      coverImage,
+    };
+    try {
+      axios.post("http://localhost:5000/booking", bookingItem).then((res) => {
+        console.log(res.data);
+
+        if (res.data.acknowledged) {
+          toast.success("Item booked successfully ");
+          setSubmitLoading(false);
+          setItemToBook(null);
+          refetchBookBtn();
+        }
+      });
+    } catch (err) {
+      toast.error("Something went wrong! Please try again");
+      setSubmitLoading(false);
+    }
 
     // toggleVisible();
-    // setItemToBook({});
   };
+  console.log(user?.displayName);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
     defaultValues: {
-      userName: user?.displayName,
-      email: user?.email,
+      buyerName: user?.displayName,
+      buyerEmail: user?.email,
 
       item: productName,
       price: price,
     },
   });
 
-  if (!itemToBook) {
+  if (!itemToBook || loading || roleLoading) {
     return <Spinner size={24} color="primary" />;
   }
 
@@ -64,7 +110,7 @@ const BookingModal = ({
             <Input
               type="text"
               placeholder="name"
-              {...register("userName")}
+              {...register("buyerName")}
               className="input-bordered"
               disabled
             />
@@ -75,7 +121,7 @@ const BookingModal = ({
               placeholder="email"
               className="input-bordered"
               disabled
-              {...register("email")}
+              {...register("buyerEmail")}
             />
 
             <Form.Label title="Item" />
@@ -100,7 +146,7 @@ const BookingModal = ({
               type="number"
               placeholder="mobile/phone"
               className="input-bordered"
-              {...register("phone", {
+              {...register("buyerPhone", {
                 required: "Phone number is required",
                 maxLength: {
                   value: 11,
@@ -116,7 +162,7 @@ const BookingModal = ({
               type="text"
               placeholder="location"
               className="input-bordered"
-              {...register("location", {
+              {...register("buyerLocation", {
                 required: "Location is required",
               })}
             />
@@ -129,9 +175,14 @@ const BookingModal = ({
               <Button
                 type="submit"
                 htmlFor="my-modal-5"
-                className="btn btn-secondary capitalize"
+                className="btn btn-secondary capitalize relative min-w-[7rem]"
+                disabled={submitLoading}
               >
-                Book Now
+                {submitLoading ? (
+                  <Spinner size={5} color="base-100" />
+                ) : (
+                  "Book Now"
+                )}
               </Button>
             </div>
           </Form>
