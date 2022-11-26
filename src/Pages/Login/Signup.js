@@ -25,7 +25,11 @@ const Signup = ({ redirectPath, processError }) => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      role: "buyer",
+    },
+  });
   const onSubmit = (data) => {
     console.log(data);
     setUserLoading(true);
@@ -170,7 +174,6 @@ const Signup = ({ redirectPath, processError }) => {
                     {...register("role")}
                     type="radio"
                     value="buyer"
-                    checked={!userLoading && true}
                     className="radio checked:bg-primary"
                   />
                 </label>

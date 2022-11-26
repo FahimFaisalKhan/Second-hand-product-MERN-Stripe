@@ -19,6 +19,7 @@ import MyBuyers from "../Pages/DashBoard/MyBuyers/MyBuyers";
 import SellerRoute from "./SellerRoute/SellerRoute";
 import AdminRoute from "./AdminRoute/AdminRoute";
 import AllSellers from "../Pages/DashBoard/AllSellers/AllSellers";
+import AllBuyers from "../Pages/DashBoard/AllBuyers/AllBuyers";
 import BuyerRoute from "./BuyerRoute/BuyerRoute";
 import Payment from "../Pages/Payment/Payment";
 
@@ -101,6 +102,14 @@ export const router = createBrowserRouter(
           element={
             <AdminRoute>
               <AllSellers />
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/dashboard/allbuyers"
+          element={
+            <AdminRoute>
+              <AllBuyers />
             </AdminRoute>
           }
         />

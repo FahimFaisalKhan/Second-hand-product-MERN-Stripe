@@ -48,10 +48,10 @@ const DashBoard = ({ children, dashHidden }) => {
           {role === "admin" && (
             <>
               <li>
-                <Link> All sellers</Link>
+                <Link to={"/dashboard/allsellers"}> All sellers</Link>
               </li>
               <li>
-                <Link> All Buyers</Link>
+                <Link to={"/dashboard/allbuyers"}> All Buyers</Link>
               </li>
             </>
           )}
