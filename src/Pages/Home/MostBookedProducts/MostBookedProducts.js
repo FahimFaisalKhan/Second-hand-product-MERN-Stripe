@@ -3,7 +3,6 @@ import SectionDecoration from "../../../SharedComponents/SectionDecoration/Secti
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Spinner from "../../../SharedComponents/Spinner/Spinner";
-import { Button, Card } from "react-daisyui";
 
 const MostBookedProducts = () => {
   const { data: popProducts = [], isLoading } = useQuery({

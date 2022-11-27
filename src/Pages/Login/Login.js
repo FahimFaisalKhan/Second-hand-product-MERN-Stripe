@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Button } from "react-daisyui";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
@@ -7,11 +7,11 @@ import { FcGoogle } from "react-icons/fc";
 import Spinner from "../../SharedComponents/Spinner/Spinner";
 import toast from "react-hot-toast";
 import axios from "axios";
+import { useToken } from "../../hooks/useToken";
 
-const Login = ({ redirectPath, processError }) => {
+const Login = ({ redirectPath, processError, setUserEmail }) => {
   const { loginUser, googleSignIn, loading, setLoading } =
     useContext(MyAuthContext);
-  const navigate = useNavigate();
 
   const {
     register,
@@ -24,10 +24,14 @@ const Login = ({ redirectPath, processError }) => {
 
     loginUser(email, password)
       .then((result) => {
-        if (result.user) {
-          setLoading(false);
-          navigate(redirectPath, { replace: true });
-        }
+        console.log(result.user);
+
+        setUserEmail(result.user.email);
+      })
+      .then(() => {
+        setLoading(false);
+
+        // navigate(redirectPath, { replace: true });
       })
       .catch((err) => {
         const parsedError = processError(err.message);
@@ -42,6 +46,7 @@ const Login = ({ redirectPath, processError }) => {
           const name = result.user.displayName;
           const email = result.user.email;
           const role = "buyer";
+
           addUserToDb({ name, email, role });
         }
       })
@@ -65,7 +70,8 @@ const Login = ({ redirectPath, processError }) => {
         console.log(res.data.acknowledged);
         setLoading(false);
         toast.success("User Logged in Successfully");
-        navigate(redirectPath, { replace: true });
+        setUserEmail(email);
+        // navigate(redirectPath, { replace: true });
       }
     } catch (err) {
       const parsedError = processError(err.message);

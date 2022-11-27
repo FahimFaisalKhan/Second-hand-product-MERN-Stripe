@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "./CheckoutForm";
-import { useActionData, useLoaderData } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 
 // Make sure to call loadStripe outside of a component’s render to avoid
 // recreating the Stripe object on every render.

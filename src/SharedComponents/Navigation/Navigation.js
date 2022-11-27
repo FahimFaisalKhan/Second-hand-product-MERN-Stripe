@@ -9,7 +9,11 @@ import Spinner from "../Spinner/Spinner";
 const Navigation = ({ showDashBoardHam, setDashHidden, dashHidden }) => {
   const { user, logOut, loading } = useContext(MyAuthContext);
   const { role, roleLoading } = useRole(user?.email);
-  console.log(user, role);
+  const handleLogOut = () => {
+    logOut().then(() => {
+      localStorage.removeItem("accessToken");
+    });
+  };
   const menuItems = (
     <>
       <Menu.Item>
@@ -29,7 +33,7 @@ const Navigation = ({ showDashBoardHam, setDashHidden, dashHidden }) => {
           <Menu.Item>
             <Link to={"/dashboard"}>Dashboard</Link>
           </Menu.Item>
-          <Menu.Item onClick={logOut}>
+          <Menu.Item onClick={handleLogOut}>
             <Link to={"/"}>Log out</Link>
           </Menu.Item>
         </>

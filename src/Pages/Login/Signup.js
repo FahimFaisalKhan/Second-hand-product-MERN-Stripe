@@ -12,12 +12,15 @@ import toast from "react-hot-toast";
 import Spinner from "../../SharedComponents/Spinner/Spinner";
 import { useNavigate } from "react-router-dom";
 import DropZone from "../../SharedComponents/DropZone/DropZone";
+import { useRole } from "../../hooks/useRole";
+import { useToken } from "../../hooks/useToken";
 
-const Signup = ({ redirectPath, processError }) => {
+const Signup = ({ processError, setUserEmail }) => {
   const { createUser, updateUser } = useContext(MyAuthContext);
   const [userLoading, setUserLoading] = useState(false);
   const [file, setFile] = useState("");
   const [fileError, setFileError] = useState("");
+
   const navigate = useNavigate();
 
   const {
@@ -45,6 +48,7 @@ const Signup = ({ redirectPath, processError }) => {
         if (img) {
           updateUser(data.name, img)
             .then(() => {
+              setUserEmail(data.email);
               addUserToDb({ ...data, img });
             })
             .catch((err) => {
@@ -83,8 +87,7 @@ const Signup = ({ redirectPath, processError }) => {
 
       if (res.data.acknowledged) {
         toast.success("User Created Successfully");
-        console.log(redirectPath, "pathhhhh");
-        navigate(redirectPath, { replace: true });
+
         setUserLoading(false);
       }
     } catch (err) {

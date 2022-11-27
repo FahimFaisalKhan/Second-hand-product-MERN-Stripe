@@ -1,14 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Tabs } from "react-daisyui";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useToken } from "../../hooks/useToken";
 import Login from "./Login";
 import Signup from "./Signup";
 
 const SignUpIn = () => {
   const [tabValue, setTabValue] = useState("login");
+  const navigate = useNavigate();
   const location = useLocation();
+  const [userEmail, setUserEmail] = useState("");
+  const { token } = useToken(userEmail);
 
   const redirectPath = location?.state?.form?.pathname || "/";
+  if (token) {
+    console.log(token);
+    localStorage.setItem("accessToken", token);
+    navigate(redirectPath, { replace: true });
+  }
   const processError = (error) => {
     const parsedError = error
       .slice(error.indexOf("/") + 1, error.indexOf(")"))
@@ -45,10 +54,18 @@ const SignUpIn = () => {
       </Tabs>
 
       {tabValue === "login" && (
-        <Login redirectPath={redirectPath} processError={processError} />
+        <Login
+          redirectPath={redirectPath}
+          processError={processError}
+          setUserEmail={setUserEmail}
+        />
       )}
       {tabValue === "signup" && (
-        <Signup redirectPath={redirectPath} processError={processError} />
+        <Signup
+          redirectPath={redirectPath}
+          processError={processError}
+          setUserEmail={setUserEmail}
+        />
       )}
     </div>
   );

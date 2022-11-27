@@ -19,11 +19,19 @@ export default function CheckoutForm({ price, pId }) {
     if (user) {
       const buyerEmail = user.email;
       axios
-        .post("http://localhost:5000/payment", {
-          pId,
-          paymentid,
-          buyerEmail,
-        })
+        .post(
+          "http://localhost:5000/payment",
+          {
+            pId,
+            paymentid,
+            buyerEmail,
+          },
+          {
+            headers: {
+              authorization: localStorage.getItem("accessToken"),
+            },
+          }
+        )
         .then((res) => {
           console.log(res.data);
         })
@@ -38,6 +46,7 @@ export default function CheckoutForm({ price, pId }) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          authorization: localStorage.getItem("accessToken"),
         },
         body: JSON.stringify({ price }),
       })

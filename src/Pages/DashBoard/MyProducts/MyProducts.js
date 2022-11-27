@@ -17,7 +17,12 @@ const MyProducts = () => {
     queryKey: ["myProducts", user?.email],
     queryFn: async () => {
       const res = await axios.get(
-        `http://localhost:5000/myProducts?email=${user?.email}`
+        `http://localhost:5000/myProducts?email=${user?.email}`,
+        {
+          headers: {
+            authorization: localStorage.getItem("accessToken"),
+          },
+        }
       );
 
       return res.data;
@@ -25,23 +30,35 @@ const MyProducts = () => {
   });
 
   const handleDelete = (id) => {
-    axios.delete(`http://localhost:5000/deleteProduct?id=${id}`).then((res) => {
-      if (res.data.deletedCount > 0) {
-        toast("Successfully Deleted");
-        refetch();
-      }
-    });
+    axios
+      .delete(`http://localhost:5000/deleteProduct?id=${id}`, {
+        headers: {
+          authorization: localStorage.getItem("accessToken"),
+        },
+      })
+      .then((res) => {
+        if (res.data.deletedCount > 0) {
+          toast("Successfully Deleted");
+          refetch();
+        }
+      });
   };
 
   const handleAdvertise = (id) => {
-    axios.put(`http://localhost:5000/advertiseProduct?id=${id}`).then((res) => {
-      console.log(res.data);
+    axios
+      .put(`http://localhost:5000/advertiseProduct?id=${id}`, {
+        headers: {
+          authorization: localStorage.getItem("accessToken"),
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
 
-      if (res.data.modifiedCount > 0) {
-        toast.success("Advertised Successfully!");
-        refetch();
-      }
-    });
+        if (res.data.modifiedCount > 0) {
+          toast.success("Advertised Successfully!");
+          refetch();
+        }
+      });
   };
 
   if (isLoading) {

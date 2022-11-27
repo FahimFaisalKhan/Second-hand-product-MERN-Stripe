@@ -17,7 +17,12 @@ const MyOrders = () => {
     queryKey: ["booking", user?.email],
     queryFn: async () => {
       const res = await axios.get(
-        `http://localhost:5000/booking?email=${user?.email}`
+        `http://localhost:5000/booking?email=${user?.email}`,
+        {
+          headers: {
+            authorization: localStorage.getItem("accessToken"),
+          },
+        }
       );
 
       return res.data;

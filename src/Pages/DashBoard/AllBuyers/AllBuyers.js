@@ -18,7 +18,11 @@ const AllBuyers = () => {
   } = useQuery({
     queryKey: ["user", "sellers"],
     queryFn: async () => {
-      const res = await axios.get("http://localhost:5000/user/buyers");
+      const res = await axios.get("http://localhost:5000/user/buyers", {
+        headers: {
+          authorization: localStorage.getItem("accessToken"),
+        },
+      });
 
       return res.data;
     },

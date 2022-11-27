@@ -55,16 +55,22 @@ const BookingModal = ({
       coverImage,
     };
     try {
-      axios.post("http://localhost:5000/booking", bookingItem).then((res) => {
-        console.log(res.data);
+      axios
+        .post("http://localhost:5000/booking", bookingItem, {
+          headers: {
+            authorization: localStorage.getItem("accessToken"),
+          },
+        })
+        .then((res) => {
+          console.log(res.data);
 
-        if (res.data.acknowledged) {
-          toast.success("Item booked successfully ");
-          setSubmitLoading(false);
-          setItemToBook(null);
-          refetchBookBtn();
-        }
-      });
+          if (res.data.acknowledged) {
+            toast.success("Item booked successfully ");
+            setSubmitLoading(false);
+            setItemToBook(null);
+            refetchBookBtn();
+          }
+        });
     } catch (err) {
       toast.error("Something went wrong! Please try again");
       setSubmitLoading(false);

@@ -18,7 +18,11 @@ const AllSellers = () => {
   } = useQuery({
     queryKey: ["user", "sellers"],
     queryFn: async () => {
-      const res = await axios.get("http://localhost:5000/user/sellers");
+      const res = await axios.get("http://localhost:5000/user/sellers", {
+        headers: {
+          authorization: localStorage.getItem("accessToken"),
+        },
+      });
 
       return res.data;
     },
@@ -29,7 +33,15 @@ const AllSellers = () => {
   const handleDeleteuser = (email) => {
     setDeliting(email);
     axios
-      .post("http://localhost:5000/user/delete", { email })
+      .post(
+        "http://localhost:5000/user/delete",
+        { email },
+        {
+          headers: {
+            authorization: localStorage.getItem("accessToken"),
+          },
+        }
+      )
       .then((res) => {
         if (res.data.deletedCount > 0 && res.data.acknowledged) {
           toast.success("Seller Deleted");
@@ -45,13 +57,23 @@ const AllSellers = () => {
   };
 
   const handleVerifyuser = (email) => {
-    axios.put("http://localhost:5000/user/update", { email }).then((res) => {
-      console.log(res.data);
+    axios
+      .put(
+        "http://localhost:5000/user/update",
+        { email },
+        {
+          headers: {
+            authorization: localStorage.getItem("accessToken"),
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res.data);
 
-      if (res.data.acknowledged) {
-        refetch();
-      }
-    });
+        if (res.data.acknowledged) {
+          refetch();
+        }
+      });
   };
 
   if (isLoading) {

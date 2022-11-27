@@ -71,7 +71,11 @@ const AddProduct = () => {
     (async () => {
       try {
         const uri = `http://localhost:5000/addProducts`;
-        const res = await axios.post(uri, product);
+        const res = await axios.post(uri, product, {
+          headers: {
+            authorization: localStorage.getItem("accessToken"),
+          },
+        });
 
         if (res.data.acknowledged) {
           setAddingProduct(false);
