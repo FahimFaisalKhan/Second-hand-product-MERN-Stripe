@@ -31,7 +31,6 @@ const Signup = ({ redirectPath, processError }) => {
     },
   });
   const onSubmit = (data) => {
-    console.log(data);
     setUserLoading(true);
     if (!file) {
       setFileError("File Required");
@@ -41,9 +40,8 @@ const Signup = ({ redirectPath, processError }) => {
 
     createUser(data.email, data.password)
       .then(async (result) => {
-        console.log(file);
         const img = await createUserImage(file);
-        console.log(img);
+
         if (img) {
           updateUser(data.name, img)
             .then(() => {
@@ -66,7 +64,7 @@ const Signup = ({ redirectPath, processError }) => {
   const createUserImage = async (image) => {
     const formData = new FormData();
     formData.append("image", image);
-    console.log(formData);
+
     const res = await axios.post(
       "https://api.imgbb.com/1/upload?key=847edcc492cd21f7cb17514808b3003e",
       formData
@@ -75,7 +73,6 @@ const Signup = ({ redirectPath, processError }) => {
   };
 
   const addUserToDb = async (user) => {
-    console.log(user);
     const { name, email, role } = user;
     try {
       const res = await axios.post("http://localhost:5000/users", {
@@ -83,12 +80,12 @@ const Signup = ({ redirectPath, processError }) => {
         email,
         role,
       });
-      console.log(res.data);
-      if (res.data.acknowledged) {
-        setUserLoading(false);
 
+      if (res.data.acknowledged) {
         toast.success("User Created Successfully");
+        console.log(redirectPath, "pathhhhh");
         navigate(redirectPath, { replace: true });
+        setUserLoading(false);
       }
     } catch (err) {
       const parsedError = processError(err.message);

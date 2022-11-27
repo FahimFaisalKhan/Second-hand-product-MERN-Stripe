@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Button, Drawer } from "react-daisyui";
 import { Link } from "react-router-dom";
+import { MyAuthContext } from "../../contexts/AuthContext";
 import { useRole } from "../../hooks/useRole";
 import Spinner from "../../SharedComponents/Spinner/Spinner";
 
 const DashBoard = ({ children, dashHidden }) => {
-  const { role, roleLoading } = useRole();
+  const { user, loading } = useContext(MyAuthContext);
+  const { role, roleLoading } = useRole(user?.email);
 
   if (roleLoading) {
     return <Spinner size={24} color="primary" />;
@@ -24,6 +26,9 @@ const DashBoard = ({ children, dashHidden }) => {
       >
         <label htmlFor="my-drawer" className="drawer-overlay"></label>
         <ul className="menu p-4  bg-gray-200 text-base-content">
+          <li>
+            <Link to={"/dashboard"}> Hi There!</Link>
+          </li>
           {role === "buyer" && (
             <>
               <li>

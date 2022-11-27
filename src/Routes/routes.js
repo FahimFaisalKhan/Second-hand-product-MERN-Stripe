@@ -23,6 +23,7 @@ import AllBuyers from "../Pages/DashBoard/AllBuyers/AllBuyers";
 import BuyerRoute from "./BuyerRoute/BuyerRoute";
 import Payment from "../Pages/Payment/Payment";
 import MyWishlist from "../Pages/DashBoard/MyWishlist/MyWishlist";
+import DashBoardWelcome from "../Pages/DashBoard/DashBoardWelcome/DashBoardWelcome";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -53,7 +54,7 @@ export const router = createBrowserRouter(
           </PrivateRoute>
         }
       >
-        <Route path="/dashboard" element={<div>Welcome To DashBoard</div>} />
+        <Route path="/dashboard" element={<DashBoardWelcome />} />
         <Route
           path="/dashboard/myorders"
           element={

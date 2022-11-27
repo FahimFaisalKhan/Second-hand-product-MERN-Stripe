@@ -6,7 +6,7 @@ import Spinner from "../../SharedComponents/Spinner/Spinner";
 
 const BuyerRoute = ({ children }) => {
   const { user, loading } = useContext(MyAuthContext);
-  const { role, roleLoading } = useRole();
+  const { role, roleLoading } = useRole(user?.email);
 
   const location = useLocation();
   if (loading || roleLoading) {

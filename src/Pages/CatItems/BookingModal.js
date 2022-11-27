@@ -16,7 +16,7 @@ const BookingModal = ({
   refetchBookBtn,
 }) => {
   const { user, loading } = useContext(MyAuthContext);
-  const { role, roleLoading } = useRole();
+  const { role, roleLoading } = useRole(user?.email);
   const [submitLoading, setSubmitLoading] = useState(false);
   const {
     name: productName,

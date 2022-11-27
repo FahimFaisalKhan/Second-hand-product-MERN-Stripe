@@ -12,7 +12,6 @@ const DropZone = ({ file, setFile, size }) => {
       "image/*": [],
     },
     onDrop: ([file]) => {
-      console.log(file);
       setFile(
         Object.assign(file, {
           preview: URL.createObjectURL(file),

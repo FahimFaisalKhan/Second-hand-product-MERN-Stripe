@@ -1,25 +1,34 @@
+import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { MyAuthContext } from "../contexts/AuthContext";
 
-export const useRole = () => {
+export const useRole = (email) => {
   const [role, setRole] = useState("");
   const [roleLoading, setRoleLoading] = useState(true);
-  const { user } = useContext(MyAuthContext);
+  // const { user } = useContext(MyAuthContext);
 
   useEffect(() => {
-    const uri = `http://localhost:5000/user/getRole?email=${user?.email}`;
+    if (email) {
+      const uri = `http://localhost:5000/user/getRole?email=${email}`;
 
-    fetch(uri)
-      .then((res) => res.json())
-      .then((user) => {
-        setRole(user.role);
+      axios
+        .get(uri)
 
-        setRoleLoading(false);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-  }, [user?.email]);
+        .then((res) => {
+          console.log(res.data);
+          if (res.data.role) {
+            setRole(res.data.role);
+          }
+
+          setRoleLoading(false);
+        })
+        .catch((err) => {
+          console.log(err);
+
+          setRoleLoading(false);
+        });
+    }
+  }, [email]);
 
   return { role, roleLoading };
 };

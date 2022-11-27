@@ -7,6 +7,7 @@ import { MdVerified } from "react-icons/md";
 import BookingModal from "./BookingModal";
 import { MyAuthContext } from "../../contexts/AuthContext";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 const CatItem = ({ prod }) => {
   const today = new Date();
@@ -94,7 +95,12 @@ const CatItem = ({ prod }) => {
         toast.error("Something went wrong! Please try again.");
       });
   };
-  if (isLoading || bookedProductsIdsLoading || loading) {
+  if (
+    isLoading ||
+    bookedProductsIdsLoading ||
+    loading ||
+    wishedProductsIdsLoading
+  ) {
     return <Spinner size={24} color="primary" />;
   }
   return (
@@ -145,11 +151,16 @@ const CatItem = ({ prod }) => {
                   setItemToBook(prod);
                 }}
                 className="text-base-100 capitalize"
-                color="warning"
+                color="primary"
                 disabled={bookedProductsIds.includes(_id)}
               >
                 {bookedProductsIds.includes(_id) ? "Booked" : "Book Now"}
               </Button>
+              <Link to={`/dashboard/payment/${_id}`}>
+                <Button color="warning" className="capitalize text-base-100">
+                  Purchase
+                </Button>
+              </Link>
             </div>
           </div>
         </Hero.Content>

@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { getAuth } from "firebase/auth";
-import React from "react";
+import React, { useState } from "react";
 import { Button, Table } from "react-daisyui";
 import toast from "react-hot-toast";
 import { useRouteError } from "react-router-dom";
@@ -10,6 +10,7 @@ import Spinner from "../../../SharedComponents/Spinner/Spinner";
 import { MdVerified } from "react-icons/md";
 
 const AllSellers = () => {
+  const [deleting, setDeliting] = useState(null);
   const {
     data: sellers = [],
     isLoading,
@@ -26,19 +27,20 @@ const AllSellers = () => {
   //DELETEING USER
 
   const handleDeleteuser = (email) => {
+    setDeliting(email);
     axios
       .post("http://localhost:5000/user/delete", { email })
       .then((res) => {
-        console.log(res.data);
-
         if (res.data.deletedCount > 0 && res.data.acknowledged) {
           toast.success("Seller Deleted");
           refetch();
+          setDeliting(null);
         }
       })
       .catch((err) => {
         console.log(err.message);
         toast.error("oops !! something went wrong! try again.");
+        setDeliting(null);
       });
   };
 
@@ -86,10 +88,17 @@ const AllSellers = () => {
                 <Button
                   size="sm"
                   color="error"
-                  className="w-[30%]"
+                  className="w-[30%] relative"
                   onClick={() => handleDeleteuser(seller.email)}
+                  disabled={deleting === seller.email}
                 >
-                  Delete
+                  {deleting === seller.email ? (
+                    <>
+                      <Spinner size={5} color="base-100" /> Deleting
+                    </>
+                  ) : (
+                    "Delete"
+                  )}
                 </Button>
                 <Button
                   size="sm"

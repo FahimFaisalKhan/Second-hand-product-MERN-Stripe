@@ -20,8 +20,6 @@ const MyOrders = () => {
         `http://localhost:5000/booking?email=${user?.email}`
       );
 
-      console.log(res.data);
-
       return res.data;
     },
   });

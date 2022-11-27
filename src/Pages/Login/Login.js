@@ -12,7 +12,7 @@ const Login = ({ redirectPath, processError }) => {
   const { loginUser, googleSignIn, loading, setLoading } =
     useContext(MyAuthContext);
   const navigate = useNavigate();
-  console.log(redirectPath);
+
   const {
     register,
     handleSubmit,
