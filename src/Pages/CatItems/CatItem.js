@@ -8,6 +8,7 @@ import BookingModal from "./BookingModal";
 import { MyAuthContext } from "../../contexts/AuthContext";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
+import { useRole } from "../../hooks/useRole";
 
 const CatItem = ({ prod }) => {
   const today = new Date();
@@ -15,6 +16,7 @@ const CatItem = ({ prod }) => {
   const { user, loading } = useContext(MyAuthContext);
   const [visible, setVisible] = useState(false);
   const [itemToBook, setItemToBook] = useState(null);
+  const { role, roleLoading } = useRole(user?.email);
   const {
     OriginalPrice,
     condition,
@@ -80,6 +82,10 @@ const CatItem = ({ prod }) => {
   };
 
   const handleWishList = (pId) => {
+    if (role !== "buyer") {
+      toast("Please login as Buyer to add item to wishlist.");
+      return;
+    }
     const customerEmail = user?.email;
     axios
       .post("http://localhost:5000/wishList", { pId, customerEmail })
@@ -99,20 +105,21 @@ const CatItem = ({ prod }) => {
     isLoading ||
     bookedProductsIdsLoading ||
     loading ||
-    wishedProductsIdsLoading
+    wishedProductsIdsLoading ||
+    roleLoading
   ) {
     return <Spinner size={24} color="primary" />;
   }
   return (
     <>
       <Hero key={_id} className="w-full bg-success mb-5 rounded-lg">
-        <Hero.Content className="w-full justify-between py-32">
+        <Hero.Content className="w-full flex-col lg:flex-row  justify-between py-32">
           <img
             alt=""
             src={coverImage}
             className="max-w-sm rounded-lg shadow-2xl w-[40%]"
           />
-          <div className="w-[60%]">
+          <div className="lg:w-[60%]">
             <h1 className="text-5xl font-bold">{name}</h1>
             <div className="py-6">
               <p>{location}</p>
@@ -132,7 +139,7 @@ const CatItem = ({ prod }) => {
                 </p>
               </div>
             </div>
-            <div className="flex justify-between">
+            <div className="flex justify-between flex-col lg:flex-row gap-5">
               <Button
                 onClick={() => {
                   handleWishList(_id);
@@ -156,10 +163,12 @@ const CatItem = ({ prod }) => {
               >
                 {bookedProductsIds.includes(_id) ? "Booked" : "Book Now"}
               </Button>
-              <Link to={`/dashboard/payment/${_id}`}>
-                <Button color="warning" className="capitalize text-base-100">
-                  Purchase
-                </Button>
+              <Link
+                to={`/dashboard/payment/${_id}`}
+                className="btn btn-warning text-base-100 capitalize"
+                disabled={role !== "buyer"}
+              >
+                Purchase
               </Link>
             </div>
           </div>

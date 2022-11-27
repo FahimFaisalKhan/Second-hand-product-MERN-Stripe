@@ -30,8 +30,13 @@ const BookingModal = ({
   } = itemToBook;
 
   const onSubmit = (data) => {
-    console.log(data);
     setSubmitLoading(true);
+
+    if (role !== "buyer") {
+      toast("Please login as Buyer to book a product");
+      setSubmitLoading(false);
+      return;
+    }
 
     const bookingTime = new Date().toLocaleDateString("en-US", {
       year: "numeric",
@@ -104,11 +109,14 @@ const BookingModal = ({
           ✕
         </Button>
         <Modal.Header className="font-bold">
-          Congratulations random Interner user!
+          Enter your informatin to book a product.
         </Modal.Header>
 
         <Modal.Body>
-          <form onSubmit={handleSubmit(onSubmit)} className="card-body">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="card-body px-0 lg:px-[auto]"
+          >
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Your name</span>

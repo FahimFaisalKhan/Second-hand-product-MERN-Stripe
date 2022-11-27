@@ -9,7 +9,7 @@ import Spinner from "../Spinner/Spinner";
 const Navigation = ({ showDashBoardHam, setDashHidden, dashHidden }) => {
   const { user, logOut, loading } = useContext(MyAuthContext);
   const { role, roleLoading } = useRole(user?.email);
-
+  console.log(user, role);
   const menuItems = (
     <>
       <Menu.Item>

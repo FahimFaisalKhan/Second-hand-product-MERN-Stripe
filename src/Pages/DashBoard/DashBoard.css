@@ -1,0 +1,6 @@
+/* .drawer-toggle ~ .drawer-content {
+  overflow-y: visible;
+} */
+.drawer-toggle ~ .drawer-side > .drawer-overlay + * {
+  --tw-translate-x: -110%;
+}

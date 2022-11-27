@@ -48,7 +48,7 @@ const MyProducts = () => {
     return <Spinner size={24} color="primary" />;
   }
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-y-auto ">
       <Table className="w-full">
         <Table.Head>
           <span />
@@ -71,7 +71,7 @@ const MyProducts = () => {
                   {status === "available" && (
                     <Button
                       size="sm"
-                      className="capitalize w-[30%]"
+                      className="capitalize w-full  2xl:w-[30%]"
                       disabled={advertised}
                       onClick={() => handleAdvertise(_id)}
                     >
@@ -81,7 +81,7 @@ const MyProducts = () => {
                   <Button
                     size="sm"
                     color="error"
-                    className="capitalize w-[30%]"
+                    className="capitalize w-full  2xl:w-[30%]"
                     onClick={() => handleDelete(_id)}
                   >
                     Delete

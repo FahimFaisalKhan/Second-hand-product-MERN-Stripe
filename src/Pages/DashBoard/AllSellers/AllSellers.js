@@ -78,7 +78,7 @@ const AllSellers = () => {
               <span>
                 <p className="flex gap-2 items-center ">
                   {seller.verified && <MdVerified color="#0d47a1" />}{" "}
-                  <span className={!seller.verified && "ml-6"}>
+                  <span className={!seller.verified ? "ml-6" : ""}>
                     {seller.name}
                   </span>
                 </p>
@@ -88,7 +88,7 @@ const AllSellers = () => {
                 <Button
                   size="sm"
                   color="error"
-                  className="w-[30%] relative"
+                  className="w-full 2xl:w-[30%] relative"
                   onClick={() => handleDeleteuser(seller.email)}
                   disabled={deleting === seller.email}
                 >
@@ -103,7 +103,7 @@ const AllSellers = () => {
                 <Button
                   size="sm"
                   color="#22c55e"
-                  className="w-[30%]"
+                  className="w-full 2xl:w-[30%]"
                   onClick={() => handleVerifyuser(seller.email)}
                   disabled={seller.verified}
                 >

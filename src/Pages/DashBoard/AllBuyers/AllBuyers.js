@@ -73,7 +73,7 @@ const AllBuyers = () => {
                 <Button
                   size="sm"
                   color="error"
-                  className="w-[30%] relative"
+                  className="w-full 2xl:w-[30%] relative"
                   onClick={() => handleDeleteuser(buyer.email)}
                   disabled={deleting === buyer.email}
                 >

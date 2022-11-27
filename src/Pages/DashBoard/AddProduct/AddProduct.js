@@ -101,7 +101,7 @@ const AddProduct = () => {
     return res.data.data.display_url;
   };
   return (
-    <div className="lg:w-2/4 mx-auto">
+    <div className=" lg:w-2/4 mx-auto">
       <h1 className="text-center text-3xl mb-5">Add A Product</h1>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Form.Label title="Product name" />
