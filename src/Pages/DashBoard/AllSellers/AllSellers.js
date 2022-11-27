@@ -3,9 +3,11 @@ import axios from "axios";
 import { getAuth } from "firebase/auth";
 import React from "react";
 import { Button, Table } from "react-daisyui";
+import toast from "react-hot-toast";
 import { useRouteError } from "react-router-dom";
 import { app } from "../../../configs/firebase.config";
 import Spinner from "../../../SharedComponents/Spinner/Spinner";
+import { MdVerified } from "react-icons/md";
 
 const AllSellers = () => {
   const {
@@ -24,11 +26,30 @@ const AllSellers = () => {
   //DELETEING USER
 
   const handleDeleteuser = (email) => {
-    const auth = getAuth(app);
     axios
-      .post("http://localhost:5000/user/seller/delete", { auth, email })
-      .then((res) => console.log(res.data))
-      .catch((err) => console.log(err.message));
+      .post("http://localhost:5000/user/delete", { email })
+      .then((res) => {
+        console.log(res.data);
+
+        if (res.data.deletedCount > 0 && res.data.acknowledged) {
+          toast.success("Seller Deleted");
+          refetch();
+        }
+      })
+      .catch((err) => {
+        console.log(err.message);
+        toast.error("oops !! something went wrong! try again.");
+      });
+  };
+
+  const handleVerifyuser = (email) => {
+    axios.put("http://localhost:5000/user/update", { email }).then((res) => {
+      console.log(res.data);
+
+      if (res.data.acknowledged) {
+        refetch();
+      }
+    });
   };
 
   if (isLoading) {
@@ -44,22 +65,40 @@ const AllSellers = () => {
           <span />
           <span>Name</span>
           <span>Email</span>
-          <span>Action</span>
+          <span className="ml-5">Action</span>
         </Table.Head>
 
         <Table.Body>
           {sellers.map((seller, index) => (
             <Table.Row key={index}>
               <span>{index + 1}</span>
-              <span>{seller.name}</span>
-              <span>{seller.email}</span>
+
               <span>
+                <p className="flex gap-2 items-center ">
+                  {seller.verified && <MdVerified color="#0d47a1" />}{" "}
+                  <span className={!seller.verified && "ml-6"}>
+                    {seller.name}
+                  </span>
+                </p>
+              </span>
+              <span>{seller.email}</span>
+              <span className="flex flex-col gap-3 items-start">
                 <Button
                   size="sm"
                   color="error"
+                  className="w-[30%]"
                   onClick={() => handleDeleteuser(seller.email)}
                 >
                   Delete
+                </Button>
+                <Button
+                  size="sm"
+                  color="#22c55e"
+                  className="w-[30%]"
+                  onClick={() => handleVerifyuser(seller.email)}
+                  disabled={seller.verified}
+                >
+                  {seller.verified ? "Verified" : "Verify"}
                 </Button>
               </span>
             </Table.Row>

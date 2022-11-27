@@ -47,7 +47,7 @@ const Navigation = ({ showDashBoardHam, setDashHidden, dashHidden }) => {
       {user && (
         <>
           <Menu.Item onClick={logOut}>
-            <Link>Log out</Link>
+            <Link to={"/"}>Log out</Link>
           </Menu.Item>
         </>
       )}

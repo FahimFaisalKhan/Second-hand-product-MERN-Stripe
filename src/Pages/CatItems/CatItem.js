@@ -83,7 +83,9 @@ const CatItem = ({ prod }) => {
               <div className="relative">
                 <p className="flex justify-start items-center gap-1">
                   <span>Seller:</span>
-                  <span>{seller.verified && <MdVerified />}</span>
+                  <span>
+                    {seller.verified && <MdVerified color="#0d47a1" />}
+                  </span>
                   <span>{seller.name}</span>
                 </p>
               </div>
