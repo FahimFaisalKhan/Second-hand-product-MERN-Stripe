@@ -29,6 +29,9 @@ const DashBoard = ({ children, dashHidden }) => {
               <li>
                 <Link to={"/dashboard/myorders"}> My Orders</Link>
               </li>
+              <li>
+                <Link to={"/dashboard/mywishlist"}> My Wish List</Link>
+              </li>
             </>
           )}
           {role === "seller" && (

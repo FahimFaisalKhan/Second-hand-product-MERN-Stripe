@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "./CheckoutForm";
@@ -12,11 +12,11 @@ const promise = loadStripe(
 );
 
 export default function Payment() {
-  const { price } = useLoaderData();
+  const { price, _id } = useLoaderData();
   return (
     <div className="container mx-auto max-w-3xl mt-12">
       <Elements stripe={promise}>
-        <CheckoutForm price={price} />
+        <CheckoutForm price={price} pId={_id} />
       </Elements>
     </div>
   );

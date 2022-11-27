@@ -191,8 +191,10 @@ const AddProduct = () => {
             },
           })}
         />
-        {errors.year && (
-          <span className="text-red-500 mt-3">{errors?.year.message}</span>
+        {errors.yearOfPurchase && (
+          <span className="text-red-500 mt-3">
+            {errors?.yearOfPurchase.message}
+          </span>
         )}
 
         <div className="form-control">

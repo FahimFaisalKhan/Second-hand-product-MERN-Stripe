@@ -22,6 +22,7 @@ import AllSellers from "../Pages/DashBoard/AllSellers/AllSellers";
 import AllBuyers from "../Pages/DashBoard/AllBuyers/AllBuyers";
 import BuyerRoute from "./BuyerRoute/BuyerRoute";
 import Payment from "../Pages/Payment/Payment";
+import MyWishlist from "../Pages/DashBoard/MyWishlist/MyWishlist";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -58,6 +59,14 @@ export const router = createBrowserRouter(
           element={
             <BuyerRoute>
               <MyOrders />
+            </BuyerRoute>
+          }
+        />
+        <Route
+          path="/dashboard/mywishlist"
+          element={
+            <BuyerRoute>
+              <MyWishlist />
             </BuyerRoute>
           }
         />

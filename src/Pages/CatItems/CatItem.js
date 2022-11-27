@@ -6,9 +6,11 @@ import Spinner from "../../SharedComponents/Spinner/Spinner";
 import { MdVerified } from "react-icons/md";
 import BookingModal from "./BookingModal";
 import { MyAuthContext } from "../../contexts/AuthContext";
+import toast from "react-hot-toast";
 
 const CatItem = ({ prod }) => {
   const today = new Date();
+
   const { user, loading } = useContext(MyAuthContext);
   const [visible, setVisible] = useState(false);
   const [itemToBook, setItemToBook] = useState(null);
@@ -54,9 +56,43 @@ const CatItem = ({ prod }) => {
       }
     },
   });
+  const {
+    data: wishedProductsIds = [],
+    wishedProductsIdsLoading,
+    refetch: refetchWishBtn,
+  } = useQuery({
+    queryKey: ["wishedProducts", user?.email],
+
+    queryFn: async () => {
+      if (user?.email) {
+        const res = await axios.get(
+          `http://localhost:5000/wishedProducts?email=${user.email}`
+        );
+
+        return res.data;
+      }
+    },
+  });
 
   const toggleVisible = () => {
     setVisible(!visible);
+  };
+
+  const handleWishList = (pId) => {
+    const customerEmail = user?.email;
+    axios
+      .post("http://localhost:5000/wishList", { pId, customerEmail })
+      .then((res) => {
+        console.log(res.data);
+        if (res.data.acknowledged) {
+          toast.success("Product added to wish list");
+          refetchWishBtn();
+        }
+      })
+      .catch((err) => {
+        console.log(err.message);
+        toast.error("Something went wrong! Please try again.");
+      });
   };
   if (isLoading || bookedProductsIdsLoading || loading) {
     return <Spinner size={24} color="primary" />;
@@ -90,17 +126,31 @@ const CatItem = ({ prod }) => {
                 </p>
               </div>
             </div>
-            <Button
-              onClick={() => {
-                toggleVisible();
-                setItemToBook(prod);
-              }}
-              className="text-base-100 capitalize"
-              color="warning"
-              disabled={bookedProductsIds.includes(_id)}
-            >
-              {bookedProductsIds.includes(_id) ? "Booked" : "Book Now"}
-            </Button>
+            <div className="flex justify-between">
+              <Button
+                onClick={() => {
+                  handleWishList(_id);
+                }}
+                className="text-base-100 capitalize"
+                color="secondary"
+                disabled={wishedProductsIds.includes(_id)}
+              >
+                {wishedProductsIds.includes(_id)
+                  ? "Wished"
+                  : "Add to wish list"}
+              </Button>
+              <Button
+                onClick={() => {
+                  toggleVisible();
+                  setItemToBook(prod);
+                }}
+                className="text-base-100 capitalize"
+                color="warning"
+                disabled={bookedProductsIds.includes(_id)}
+              >
+                {bookedProductsIds.includes(_id) ? "Booked" : "Book Now"}
+              </Button>
+            </div>
           </div>
         </Hero.Content>
       </Hero>

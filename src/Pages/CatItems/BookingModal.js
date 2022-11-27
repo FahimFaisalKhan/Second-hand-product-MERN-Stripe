@@ -82,6 +82,9 @@ const BookingModal = ({
     },
   });
 
+  useEffect(() => {
+    console.log(errors.phone);
+  }, [errors.phone]);
   if (!itemToBook || loading || roleLoading) {
     return <Spinner size={24} color="primary" />;
   }
@@ -105,74 +108,100 @@ const BookingModal = ({
         </Modal.Header>
 
         <Modal.Body>
-          <Form onSubmit={handleSubmit(onSubmit)}>
-            <Form.Label title="Your name" />
-            <Input
-              type="text"
-              placeholder="name"
-              {...register("buyerName")}
-              className="input-bordered"
-              disabled
-            />
+          <form onSubmit={handleSubmit(onSubmit)} className="card-body">
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Your name</span>
+              </label>
+              <input
+                type="text"
+                placeholder="name"
+                {...register("buyerName")}
+                className="input input-bordered"
+                disabled
+              />
+            </div>
 
-            <Form.Label title="Email" />
-            <Input
-              type="email"
-              placeholder="email"
-              className="input-bordered"
-              disabled
-              {...register("buyerEmail")}
-            />
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Email</span>
+              </label>
+              <input
+                type="email"
+                placeholder="email"
+                className="input input-bordered"
+                disabled
+                {...register("buyerEmail")}
+              />
+            </div>
 
-            <Form.Label title="Item" />
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Product</span>
+              </label>
 
-            <Input
-              type="text"
-              placeholder="item name"
-              className="input-bordered"
-              disabled
-              {...register("item")}
-            />
-            <Form.Label title="Price" />
-            <Input
-              type="text"
-              placeholder="price"
-              className="input-bordered"
-              disabled
-              {...register("price")}
-            />
-            <Form.Label title="Phone number" />
-            <Input
-              type="number"
-              placeholder="mobile/phone"
-              className="input-bordered"
-              {...register("buyerPhone", {
-                required: "Phone number is required",
-                maxLength: {
-                  value: 11,
-                  message: "Phone number Can not me more then 11 digits",
-                },
-              })}
-            />
-            {errors.phone && (
-              <span className="text-red-500 mt-3">{errors?.phone.message}</span>
-            )}
-            <Form.Label title="Location" />
-            <Input
-              type="text"
-              placeholder="location"
-              className="input-bordered"
-              {...register("buyerLocation", {
-                required: "Location is required",
-              })}
-            />
-            {errors.location && (
-              <span className="text-red-500 mt-3">
-                {errors?.location.message}
-              </span>
-            )}
-            <div className="modal-action">
-              <Button
+              <input
+                type="text"
+                placeholder="item name"
+                className="input input-bordered"
+                disabled
+                {...register("item")}
+              />
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Price</span>
+              </label>
+              <input
+                type="text"
+                placeholder="price"
+                className="input input-bordered"
+                disabled
+                {...register("price")}
+              />
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Contact number</span>
+              </label>
+              <input
+                type="number"
+                placeholder="mobile/phone"
+                className="input input-bordered"
+                {...register("buyerPhone", {
+                  required: "Phone number is required",
+                  maxLength: {
+                    value: 11,
+                    message: "Phone number Can not me more then 11 digits",
+                  },
+                })}
+              />
+              {errors.buyerPhone && (
+                <span className="text-red-500 mt-3">
+                  {errors?.buyerPhone.message}
+                </span>
+              )}
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Location</span>
+              </label>
+              <input
+                type="text"
+                placeholder="location"
+                className="input input-bordered"
+                {...register("buyerLocation", {
+                  required: "Location is required",
+                })}
+              />
+              {errors.buyersLocation && (
+                <span className="text-red-500 mt-3">
+                  {errors?.buyersLocation.message}
+                </span>
+              )}
+            </div>
+            <div className="form-control mt-6">
+              <button
                 type="submit"
                 htmlFor="my-modal-5"
                 className="btn btn-secondary capitalize relative min-w-[7rem]"
@@ -183,9 +212,9 @@ const BookingModal = ({
                 ) : (
                   "Book Now"
                 )}
-              </Button>
+              </button>
             </div>
-          </Form>
+          </form>
         </Modal.Body>
       </Modal>
     </div>

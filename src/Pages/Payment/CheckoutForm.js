@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import "./Payment.css";
 import Spinner from "../../SharedComponents/Spinner/Spinner";
-export default function CheckoutForm({ price }) {
+import axios from "axios";
+import { MyAuthContext } from "../../contexts/AuthContext";
+export default function CheckoutForm({ price, pId }) {
+  const { loading, user } = useContext(MyAuthContext);
   const [succeeded, setSucceeded] = useState(false);
   const [error, setError] = useState(null);
   const [processing, setProcessing] = useState("");
@@ -11,6 +14,22 @@ export default function CheckoutForm({ price }) {
   const [paymentid, setpaymentid] = useState("");
   const stripe = useStripe();
   const elements = useElements();
+
+  const handlePayment = (pId) => {
+    if (user) {
+      const buyerEmail = user.email;
+      axios
+        .post("http://localhost:5000/payment", {
+          pId,
+          paymentid,
+          buyerEmail,
+        })
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((err) => console.log(err.message));
+    }
+  };
 
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
@@ -74,9 +93,12 @@ export default function CheckoutForm({ price }) {
       setError(null);
       setProcessing(false);
       setSucceeded(true);
+      handlePayment(pId);
     }
   };
-
+  if (loading) {
+    return <Spinner size={24} color="primary" />;
+  }
   return (
     <form id="payment-form" onSubmit={handleSubmit}>
       <CardElement
@@ -90,7 +112,13 @@ export default function CheckoutForm({ price }) {
         className="btn btn-block relative mt-10"
       >
         <span id="button-text">
-          {processing ? <Spinner size={5} color="primary" /> : "Pay now"}
+          {processing ? (
+            <Spinner size={5} color="primary" />
+          ) : succeeded ? (
+            "Paid"
+          ) : (
+            "Pay now"
+          )}
         </span>
       </button>
       {/* Show any error that happens when processing the payment */}
