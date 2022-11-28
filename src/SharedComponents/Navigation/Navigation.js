@@ -5,6 +5,7 @@ import { FaSearch } from "react-icons/fa";
 import { MyAuthContext } from "../../contexts/AuthContext";
 import { useRole } from "../../hooks/useRole";
 import Spinner from "../Spinner/Spinner";
+import shoppingBag from "../../Static/Images/shopping-bag.png";
 
 const Navigation = ({ showDashBoardHam, setDashHidden, dashHidden }) => {
   const { user, logOut, loading } = useContext(MyAuthContext);
@@ -82,7 +83,19 @@ const Navigation = ({ showDashBoardHam, setDashHidden, dashHidden }) => {
             {menuItems}
           </Dropdown.Menu>
         </Dropdown>
-        <Link className="btn btn-ghost normal-case text-xl">daisyUI</Link>
+        <Link to={"/"}>
+          <div className="flex items-center ">
+            <img
+              src={shoppingBag}
+              className="w-6  h-6  md:w-10 md:h-auto"
+              alt=""
+            />
+            <h2 className="btn btn-ghost normal-case text-xl md:text-2xl">
+              BechaKena
+            </h2>
+          </div>
+        </Link>
+
         {showDashBoardHam && user && role && (
           <label
             htmlFor="my-drawer"
