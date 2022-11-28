@@ -16,8 +16,10 @@ const Home = () => {
     <div>
       <section className="flex flex-col  lg:flex-row min-h-[80vh] relative ">
         <div className="lg:w-2/4 flex flex-col justify-center gap-8 bg-info py-32 lg:py-[auto] px-10 lg:px-32 rounded-l-sm">
-          <h2>Just Dropped</h2>
-          <h1 className="font-serif text-5xl ">Feel Authentic Peace</h1>
+          <h2>Welcome to Becha-Kena!</h2>
+          <h1 className="font-serif text-5xl ">
+            Feel Authentic Peace Of Shopping
+          </h1>
           <Button className="bg-base-content text-base-100 hover:text-base-content w-44">
             Shop Now
           </Button>

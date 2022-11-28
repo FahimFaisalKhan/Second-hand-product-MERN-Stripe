@@ -116,6 +116,9 @@ const AddProduct = () => {
           className="input-bordered"
           {...register("name", { required: "Product name is required" })}
         />
+        {errors.name && (
+          <span className="text-red-500 mt-3">{errors?.name.message}</span>
+        )}
 
         <Form.Label title="Select a category" />
         <select
@@ -128,13 +131,23 @@ const AddProduct = () => {
           <option value="Drums">Drums</option>
           <option value="Pianos">Pianos</option>
         </select>
-        <Form.Label title="Price" />
+
+        <Form.Label title="Price in $" />
         <Input
           type="text"
           placeholder="price"
           className="input-bordered"
-          {...register("price", { required: "price name is required" })}
+          {...register("price", {
+            required: "price  is required",
+            max: {
+              value: 999999.99,
+              message: "price should be lower than $999999.99",
+            },
+          })}
         />
+        {errors.price && (
+          <span className="text-red-500 mt-3">{errors?.price.message}</span>
+        )}
         <Form.Label title="Original Price" />
         <Input
           type="text"
@@ -144,6 +157,11 @@ const AddProduct = () => {
             required: "OriginalPrice name is required",
           })}
         />
+        {errors.OriginalPrice && (
+          <span className="text-red-500 mt-3">
+            {errors?.OriginalPrice.message}
+          </span>
+        )}
         <Form.Label title="Description" />
         <Textarea
           type="text"
@@ -153,6 +171,12 @@ const AddProduct = () => {
             required: "description name is required",
           })}
         />
+        {errors.description && (
+          <span className="text-red-500 mt-3">
+            {errors?.description.message}
+          </span>
+        )}
+
         <Form.Label title="Condition" />
         <select
           className="select select-bordered w-full "
@@ -187,6 +211,9 @@ const AddProduct = () => {
           className="input-bordered"
           {...register("location", { required: "location name is required" })}
         />
+        {errors.location && (
+          <span className="text-red-500 mt-3">{errors?.location.message}</span>
+        )}
         <Form.Label title="Year of Purchase" />
         <Input
           type="number"
