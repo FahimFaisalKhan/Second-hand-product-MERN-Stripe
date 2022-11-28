@@ -91,7 +91,7 @@ const Navigation = ({ showDashBoardHam, setDashHidden, dashHidden }) => {
               alt=""
             />
             <h2 className="btn btn-ghost normal-case text-xl md:text-2xl">
-              BechaKena
+              Becha-Kena
             </h2>
           </div>
         </Link>

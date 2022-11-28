@@ -67,7 +67,7 @@ const Signup = ({ processError, setUserEmail }) => {
     formData.append("image", image);
 
     const res = await axios.post(
-      "https://api.imgbb.com/1/upload?key=847edcc492cd21f7cb17514808b3003e",
+      `https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_imgbb_key}`,
       formData
     );
     return res.data.data.display_url;
