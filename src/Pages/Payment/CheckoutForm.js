@@ -4,6 +4,7 @@ import "./Payment.css";
 import Spinner from "../../SharedComponents/Spinner/Spinner";
 import axios from "axios";
 import { MyAuthContext } from "../../contexts/AuthContext";
+import toast from "react-hot-toast";
 export default function CheckoutForm({ price, pId }) {
   const { loading, user } = useContext(MyAuthContext);
   const [succeeded, setSucceeded] = useState(false);
@@ -34,6 +35,9 @@ export default function CheckoutForm({ price, pId }) {
         )
         .then((res) => {
           console.log(res.data);
+          if (res.data.acknowledged) {
+            toast.success("Congrats!! Payment Successfull");
+          }
         })
         .catch((err) => console.log(err.message));
     }

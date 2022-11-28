@@ -25,6 +25,7 @@ const AddProduct = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = async (data) => {
+    console.log(data);
     setAddingProduct(true);
     console.log(coverFile, additionalFile1, user.displayName);
 
@@ -65,7 +66,7 @@ const AddProduct = () => {
       postDate,
       sellerEmail: user?.email,
     };
-    console.log(product);
+
     console.log(product.additionalImages[0]);
 
     (async () => {
@@ -116,13 +117,17 @@ const AddProduct = () => {
           {...register("name", { required: "Product name is required" })}
         />
 
-        <Form.Label title="Category" />
-        <Input
-          type="text"
-          placeholder="category"
-          className="input-bordered"
-          {...register("category", { required: "category name is required" })}
-        />
+        <Form.Label title="Select a category" />
+        <select
+          className="select select-bordered w-full "
+          {...register("category", {
+            required: "must select a category",
+          })}
+        >
+          <option value="Guitars">Guitars</option>
+          <option value="Drums">Drums</option>
+          <option value="Pianos">Pianos</option>
+        </select>
         <Form.Label title="Price" />
         <Input
           type="text"

@@ -21,8 +21,6 @@ const Signup = ({ processError, setUserEmail }) => {
   const [file, setFile] = useState("");
   const [fileError, setFileError] = useState("");
 
-  const navigate = useNavigate();
-
   const {
     register,
     handleSubmit,
@@ -48,7 +46,6 @@ const Signup = ({ processError, setUserEmail }) => {
         if (img) {
           updateUser(data.name, img)
             .then(() => {
-              setUserEmail(data.email);
               addUserToDb({ ...data, img });
             })
             .catch((err) => {
@@ -89,6 +86,7 @@ const Signup = ({ processError, setUserEmail }) => {
         toast.success("User Created Successfully");
 
         setUserLoading(false);
+        setUserEmail(email);
       }
     } catch (err) {
       const parsedError = processError(err.message);

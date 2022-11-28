@@ -1,6 +1,6 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button, Dropdown, Input, Menu, Navbar } from "react-daisyui";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 import { MyAuthContext } from "../../contexts/AuthContext";
 import { useRole } from "../../hooks/useRole";
@@ -14,10 +14,14 @@ const Navigation = ({ showDashBoardHam, setDashHidden, dashHidden }) => {
       localStorage.removeItem("accessToken");
     });
   };
+
   const menuItems = (
     <>
       <Menu.Item>
         <Link to={"/"}>Home</Link>
+      </Menu.Item>
+      <Menu.Item>
+        <Link to={"/blog"}>Blog</Link>
       </Menu.Item>
 
       {!user && (
@@ -30,9 +34,10 @@ const Navigation = ({ showDashBoardHam, setDashHidden, dashHidden }) => {
 
       {user && (
         <>
-          <Menu.Item>
+          <Menu.Item disabled={roleLoading || loading}>
             <Link to={"/dashboard"}>Dashboard</Link>
           </Menu.Item>
+
           <Menu.Item onClick={handleLogOut}>
             <Link to={"/"}>Log out</Link>
           </Menu.Item>

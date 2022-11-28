@@ -33,10 +33,19 @@ const AllBuyers = () => {
   const handleDeleteuser = (email) => {
     setDeliting(email);
     axios
-      .post("http://localhost:5000/user/delete", { email })
+      .delete(
+        "http://localhost:5000/user/delete",
+
+        {
+          headers: {
+            authorization: localStorage.getItem("accessToken"),
+          },
+          data: { email },
+        }
+      )
       .then((res) => {
         if (res.data.deletedCount > 0 && res.data.acknowledged) {
-          toast.success("Seller Deleted");
+          toast.success("Buyer Deleted");
           refetch();
           setDeliting(false);
         }

@@ -33,13 +33,14 @@ const AllSellers = () => {
   const handleDeleteuser = (email) => {
     setDeliting(email);
     axios
-      .post(
+      .delete(
         "http://localhost:5000/user/delete",
-        { email },
+
         {
           headers: {
             authorization: localStorage.getItem("accessToken"),
           },
+          data: { email },
         }
       )
       .then((res) => {

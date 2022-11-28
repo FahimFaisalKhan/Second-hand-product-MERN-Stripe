@@ -24,13 +24,16 @@ import BuyerRoute from "./BuyerRoute/BuyerRoute";
 import Payment from "../Pages/Payment/Payment";
 import MyWishlist from "../Pages/DashBoard/MyWishlist/MyWishlist";
 import DashBoardWelcome from "../Pages/DashBoard/DashBoardWelcome/DashBoardWelcome";
+import Blog from "../Pages/Blog/Blog";
+import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route path="/" element={<MainLayout />}>
+      <Route path="/" element={<MainLayout />} errorElement={<ErrorPage />}>
         <Route path="/" element={<HomeLayout />}>
           <Route path="/" element={<Home />} />
+          <Route path="/blog" element={<Blog />} />
           <Route
             path="/category/:cat"
             element={
@@ -53,6 +56,7 @@ export const router = createBrowserRouter(
             <DashBoardLayout />
           </PrivateRoute>
         }
+        errorElement={<ErrorPage />}
       >
         <Route path="/dashboard" element={<DashBoardWelcome />} />
         <Route

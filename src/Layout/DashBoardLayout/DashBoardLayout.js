@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
+import { MyAuthContext } from "../../contexts/AuthContext";
+import { useRole } from "../../hooks/useRole";
 import DashBoard from "../../Pages/DashBoard/DashBoard";
 import FooterComp from "../../SharedComponents/FooterComp/FooterComp";
 import Navigation from "../../SharedComponents/Navigation/Navigation";
 
 const DashBoardLayout = () => {
   const [dashHidden, setDashHidden] = useState(true);
+
   return (
     <div>
       <div>

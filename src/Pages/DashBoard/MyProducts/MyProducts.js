@@ -46,7 +46,7 @@ const MyProducts = () => {
 
   const handleAdvertise = (id) => {
     axios
-      .put(`http://localhost:5000/advertiseProduct?id=${id}`, {
+      .get(`http://localhost:5000/advertiseProduct?id=${id}`, {
         headers: {
           authorization: localStorage.getItem("accessToken"),
         },
@@ -58,7 +58,8 @@ const MyProducts = () => {
           toast.success("Advertised Successfully!");
           refetch();
         }
-      });
+      })
+      .catch((err) => console.log(err.essage));
   };
 
   if (isLoading) {

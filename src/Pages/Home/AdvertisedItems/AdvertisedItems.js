@@ -19,11 +19,14 @@ const AdvertisedItems = () => {
   if (isLoading) {
     return <Spinner size={24} color="primary" />;
   }
+  if (advertisedProducts.length < 1) {
+    return;
+  }
   return (
     <div className="min-h-[80vh] bg-success my-32 py-12 pb-24 px-3">
       <SectionDecoration />
       <h1 className="font-serif text-5xl text-center py-16 ">
-        Featured Collections
+        Advertised Collections
       </h1>
 
       <div className="grid xl:grid-cols-4 gap-4 2xl:gap-10 2xl:gap-y-32  py-16 sm:px-12">

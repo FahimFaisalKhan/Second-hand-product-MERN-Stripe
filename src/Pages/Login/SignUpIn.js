@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Tabs } from "react-daisyui";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useRole } from "../../hooks/useRole";
 import { useToken } from "../../hooks/useToken";
 import Login from "./Login";
 import Signup from "./Signup";
@@ -13,11 +14,15 @@ const SignUpIn = () => {
   const { token } = useToken(userEmail);
 
   const redirectPath = location?.state?.form?.pathname || "/";
-  if (token) {
-    console.log(token);
-    localStorage.setItem("accessToken", token);
-    navigate(redirectPath, { replace: true });
-  }
+
+  useEffect(() => {
+    if (token) {
+      console.log(token);
+      localStorage.setItem("accessToken", token);
+      navigate(redirectPath, { replace: true });
+    }
+  }, [navigate, redirectPath, token]);
+
   const processError = (error) => {
     const parsedError = error
       .slice(error.indexOf("/") + 1, error.indexOf(")"))

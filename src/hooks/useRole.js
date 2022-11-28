@@ -15,7 +15,6 @@ export const useRole = (email) => {
         .get(uri)
 
         .then((res) => {
-          console.log(res.data);
           if (res.data.role) {
             setRole(res.data.role);
           }
@@ -23,7 +22,7 @@ export const useRole = (email) => {
           setRoleLoading(false);
         })
         .catch((err) => {
-          console.log(err);
+          console.log(err, "got role error");
 
           setRoleLoading(false);
         });
