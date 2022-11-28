@@ -9,7 +9,7 @@ import { MyAuthContext } from "../../contexts/AuthContext";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { useRole } from "../../hooks/useRole";
-
+import { ImLocation2 } from "react-icons/im";
 const CatItem = ({ prod }) => {
   const today = new Date();
 
@@ -19,10 +19,9 @@ const CatItem = ({ prod }) => {
   const { role, roleLoading } = useRole(user?.email);
   const {
     OriginalPrice,
-    condition,
-    contactNumber,
+
     coverImage,
-    description,
+
     location,
     name,
     postDate,
@@ -125,20 +124,22 @@ const CatItem = ({ prod }) => {
           <div className="lg:w-[60%]">
             <h1 className="text-5xl font-bold">{name}</h1>
             <div className="py-6">
-              <p>{location}</p>
-              <p>Resale Price: {price}</p>
-              <p>Original Price: {OriginalPrice}</p>
+              <p className="flex items-center gap-2">
+                <ImLocation2 color="#00296b" /> <span>{location}</span>
+              </p>
+              <p>Resale Price: ${price}</p>
+              <p>Original Price: ${OriginalPrice}</p>
               <p>
                 Years of use: {today.getFullYear() - parseInt(yearOfPurchase)}
               </p>
-              <p>Posted on: {postDate}</p>
+              <p>Posted on: {postDate}.</p>
               <div className="relative">
                 <p className="flex justify-start items-center gap-1">
                   <span>Seller:</span>
                   <span>
                     {seller.verified && <MdVerified color="#0d47a1" />}
                   </span>
-                  <span>{seller.name}</span>
+                  <span>{seller.name}.</span>
                 </p>
               </div>
             </div>

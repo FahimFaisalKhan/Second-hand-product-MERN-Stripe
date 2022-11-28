@@ -11,6 +11,7 @@ import { MdVerified } from "react-icons/md";
 
 const AllSellers = () => {
   const [deleting, setDeliting] = useState(null);
+  const [verifying, setVerifying] = useState(false);
   const {
     data: sellers = [],
     isLoading,
@@ -61,6 +62,7 @@ const AllSellers = () => {
   };
 
   const handleVerifyuser = (email) => {
+    setVerifying(true);
     axios
       .put(
         "https://bechakena-ten.vercel.app/user/update",
@@ -75,9 +77,11 @@ const AllSellers = () => {
         console.log(res.data);
 
         if (res.data.acknowledged) {
+          setVerifying(false);
           refetch();
         }
-      });
+      })
+      .catch((err) => setVerifying(false));
   };
 
   if (isLoading) {
@@ -120,21 +124,23 @@ const AllSellers = () => {
                 >
                   {deleting === seller.email ? (
                     <>
-                      <Spinner size={5} color="base-100" /> Deleting
+                      <Spinner size={5} color="base-100" />
                     </>
                   ) : (
                     "Delete"
                   )}
                 </Button>
-                <Button
-                  size="sm"
-                  color="#22c55e"
-                  className="w-full 2xl:w-[30%]"
+                <button
+                  className="btn btn-sm bg-green-400 hover:bg-green-600 w-full 2xl:w-[30%]"
                   onClick={() => handleVerifyuser(seller.email)}
-                  disabled={seller.verified}
+                  disabled={seller.verified || verifying}
                 >
-                  {seller.verified ? "Verified" : "Verify"}
-                </Button>
+                  {verifying
+                    ? "Verifying"
+                    : seller.verified
+                    ? "Verified"
+                    : "Verify"}
+                </button>
               </span>
             </Table.Row>
           ))}

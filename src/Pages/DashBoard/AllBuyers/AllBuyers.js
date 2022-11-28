@@ -95,7 +95,7 @@ const AllBuyers = () => {
                 >
                   {deleting === buyer.email ? (
                     <>
-                      <Spinner size={5} color="base-100" /> Deleting
+                      <Spinner size={5} color="base-100" />
                     </>
                   ) : (
                     "Delete"

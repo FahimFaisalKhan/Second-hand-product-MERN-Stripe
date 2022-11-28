@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Button, Table } from "react-daisyui";
 import toast from "react-hot-toast";
 import { MyAuthContext } from "../../../contexts/AuthContext";
@@ -8,6 +8,8 @@ import Spinner from "../../../SharedComponents/Spinner/Spinner";
 
 const MyProducts = () => {
   const { user } = useContext(MyAuthContext);
+  const [deleting, setDeleting] = useState(false);
+  const [advertising, setAdverTising] = useState(false);
 
   const {
     data: myProds = [],
@@ -30,6 +32,7 @@ const MyProducts = () => {
   });
 
   const handleDelete = (id) => {
+    setDeleting(true);
     axios
       .delete(`https://bechakena-ten.vercel.app/deleteProduct?id=${id}`, {
         headers: {
@@ -39,12 +42,15 @@ const MyProducts = () => {
       .then((res) => {
         if (res.data.deletedCount > 0) {
           toast("Successfully Deleted");
+          setDeleting(false);
           refetch();
         }
-      });
+      })
+      .catch(() => setDeleting(false));
   };
 
   const handleAdvertise = (id) => {
+    setAdverTising(true);
     axios
       .get(`https://bechakena-ten.vercel.app/advertiseProduct?id=${id}`, {
         headers: {
@@ -56,10 +62,14 @@ const MyProducts = () => {
 
         if (res.data.modifiedCount > 0) {
           toast.success("Advertised Successfully!");
+          setAdverTising(false);
           refetch();
         }
       })
-      .catch((err) => console.log(err.essage));
+      .catch((err) => {
+        console.log(err.essage);
+        setAdverTising(false);
+      });
   };
 
   if (isLoading) {
@@ -90,10 +100,14 @@ const MyProducts = () => {
                     <Button
                       size="sm"
                       className="capitalize w-full  2xl:w-[30%]"
-                      disabled={advertised}
+                      disabled={advertised || advertising}
                       onClick={() => handleAdvertise(_id)}
                     >
-                      {advertised ? "Advertised" : "Advertise"}
+                      {advertising
+                        ? "Advertising"
+                        : advertised
+                        ? "Advertised"
+                        : "Advertise"}
                     </Button>
                   )}
                   <Button
@@ -101,8 +115,9 @@ const MyProducts = () => {
                     color="error"
                     className="capitalize w-full  2xl:w-[30%]"
                     onClick={() => handleDelete(_id)}
+                    disabled={deleting}
                   >
-                    Delete
+                    {deleting ? "Deleting" : "Delete"}
                   </Button>
                 </span>
               </Table.Row>
