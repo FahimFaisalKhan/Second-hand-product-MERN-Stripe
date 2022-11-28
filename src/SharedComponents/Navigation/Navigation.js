@@ -36,7 +36,15 @@ const Navigation = ({ showDashBoardHam, setDashHidden, dashHidden }) => {
       {user && (
         <>
           <Menu.Item disabled={roleLoading || loading}>
-            <Link to={"/dashboard"}>Dashboard</Link>
+            {role === "buyer" ? (
+              <Link to={"/dashboard/myorders"}>Dashboard</Link>
+            ) : role === "seller" ? (
+              <Link to={"/dashboard/myproducts"}>Dashboard</Link>
+            ) : role === "admin" ? (
+              <Link to={"/dashboard/allsellers"}>Dashboard</Link>
+            ) : (
+              <Link to={"/dashboard"}>Dashboard</Link>
+            )}
           </Menu.Item>
 
           <Menu.Item onClick={handleLogOut}>
