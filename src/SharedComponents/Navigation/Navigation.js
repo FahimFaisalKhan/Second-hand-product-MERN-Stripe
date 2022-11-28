@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { Button, Dropdown, Input, Menu, Navbar } from "react-daisyui";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 import { MyAuthContext } from "../../contexts/AuthContext";
 import { useRole } from "../../hooks/useRole";
-import Spinner from "../Spinner/Spinner";
+
 import shoppingBag from "../../Static/Images/shopping-bag.png";
 
 const Navigation = ({ showDashBoardHam, setDashHidden, dashHidden }) => {
@@ -64,9 +64,6 @@ const Navigation = ({ showDashBoardHam, setDashHidden, dashHidden }) => {
     </div>
   );
 
-  // if (loading) {
-  //   return <Spinner size={24} color="primary" />;
-  // }
   return (
     <Navbar className="flex-wrap sm:flex-nowrap sm:text-lg">
       <Navbar.Start className=" justify-between sm:justify-start w-full lg:max-w-[33%]">
