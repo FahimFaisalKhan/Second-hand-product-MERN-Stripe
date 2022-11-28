@@ -60,11 +60,14 @@ const Login = ({ redirectPath, processError, setUserEmail }) => {
     console.log(user);
     const { name, email, role } = user;
     try {
-      const res = await axios.post("http://localhost:5000/users?social=true", {
-        name,
-        email,
-        role,
-      });
+      const res = await axios.post(
+        "https://bechakena-ten.vercel.app/users?social=true",
+        {
+          name,
+          email,
+          role,
+        }
+      );
       console.log(res.data);
       if (res.data.acknowledged) {
         console.log(res.data.acknowledged);

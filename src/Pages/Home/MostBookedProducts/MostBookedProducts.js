@@ -8,7 +8,9 @@ const MostBookedProducts = () => {
   const { data: popProducts = [], isLoading } = useQuery({
     queryKey: ["mostBookedProducts"],
     queryFn: async () => {
-      const res = await axios.get("http://localhost:5000/mostBookedProducts");
+      const res = await axios.get(
+        "https://bechakena-ten.vercel.app/mostBookedProducts"
+      );
       return res.data;
     },
   });

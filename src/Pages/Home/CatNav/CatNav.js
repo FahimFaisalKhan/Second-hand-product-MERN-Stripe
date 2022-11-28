@@ -8,12 +8,18 @@ const CatNav = () => {
   const { data: cats = [], isLoading } = useQuery({
     queryKey: ["categoryNames"],
     queryFn: async () => {
-      const res = await axios.get("http://localhost:5000/categoryNames");
+      const res = await axios.get(
+        "https://bechakena-ten.vercel.app/categoryNames"
+      );
       return res.data;
     },
   });
   if (isLoading) {
-    return <div>loading..</div>;
+    return (
+      <div className="text-center text-lg font-medium text-primary">
+        loading...
+      </div>
+    );
   }
   return (
     <div className=" flex justify-between bg-neutral rounded-sm text-lg font-medium ">

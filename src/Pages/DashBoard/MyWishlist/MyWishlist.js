@@ -20,7 +20,7 @@ const MyWishlist = () => {
     queryFn: async () => {
       if (user) {
         const res = await axios.get(
-          `http://localhost:5000/wishList?customerEmail=${user.email}`,
+          `https://bechakena-ten.vercel.app/wishList?customerEmail=${user.email}`,
           {
             headers: {
               authorization: localStorage.getItem("accessToken"),

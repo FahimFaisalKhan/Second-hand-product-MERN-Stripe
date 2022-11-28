@@ -10,7 +10,9 @@ const AdvertisedItems = () => {
   const { data: advertisedProducts = [], isLoading } = useQuery({
     queryKey: ["advertisedItems"],
     queryFn: async () => {
-      const res = await axios.get("http://localhost:5000/advertisedItems");
+      const res = await axios.get(
+        "https://bechakena-ten.vercel.app/advertisedItems"
+      );
 
       return res.data;
     },

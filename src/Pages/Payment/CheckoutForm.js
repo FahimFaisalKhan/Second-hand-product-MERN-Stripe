@@ -21,7 +21,7 @@ export default function CheckoutForm({ price, pId }) {
       const buyerEmail = user.email;
       axios
         .post(
-          "http://localhost:5000/payment",
+          "https://bechakena-ten.vercel.app/payment",
           {
             pId,
             paymentid,
@@ -46,7 +46,7 @@ export default function CheckoutForm({ price, pId }) {
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
     window
-      .fetch("http://localhost:5000/create-payment-intent", {
+      .fetch("https://bechakena-ten.vercel.app/create-payment-intent", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

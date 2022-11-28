@@ -71,7 +71,7 @@ const AddProduct = () => {
 
     (async () => {
       try {
-        const uri = `http://localhost:5000/addProducts`;
+        const uri = `https://bechakena-ten.vercel.app/addProducts`;
         const res = await axios.post(uri, product, {
           headers: {
             authorization: localStorage.getItem("accessToken"),

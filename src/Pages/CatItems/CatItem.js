@@ -36,7 +36,7 @@ const CatItem = ({ prod }) => {
 
     queryFn: async () => {
       const res = await axios.get(
-        `http://localhost:5000/user/getSellerName?email=${sellerEmail}`
+        `https://bechakena-ten.vercel.app/user/getSellerName?email=${sellerEmail}`
       );
 
       return res.data;
@@ -52,7 +52,7 @@ const CatItem = ({ prod }) => {
     queryFn: async () => {
       if (user?.email) {
         const res = await axios.get(
-          `http://localhost:5000/bookedProducts?email=${user.email}`
+          `https://bechakena-ten.vercel.app/bookedProducts?email=${user.email}`
         );
 
         return res.data;
@@ -69,7 +69,7 @@ const CatItem = ({ prod }) => {
     queryFn: async () => {
       if (user?.email) {
         const res = await axios.get(
-          `http://localhost:5000/wishedProducts?email=${user.email}`
+          `https://bechakena-ten.vercel.app/wishedProducts?email=${user.email}`
         );
 
         return res.data;
@@ -88,7 +88,10 @@ const CatItem = ({ prod }) => {
     }
     const customerEmail = user?.email;
     axios
-      .post("http://localhost:5000/wishList", { pId, customerEmail })
+      .post("https://bechakena-ten.vercel.app/wishList", {
+        pId,
+        customerEmail,
+      })
       .then((res) => {
         console.log(res.data);
         if (res.data.acknowledged) {

@@ -9,7 +9,7 @@ export const useRole = (email) => {
 
   useEffect(() => {
     if (email) {
-      const uri = `http://localhost:5000/user/getRole?email=${email}`;
+      const uri = `https://bechakena-ten.vercel.app/user/getRole?email=${email}`;
 
       axios
         .get(uri)

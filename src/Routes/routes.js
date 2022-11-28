@@ -42,7 +42,9 @@ export const router = createBrowserRouter(
               </PrivateRoute>
             }
             loader={({ params }) =>
-              axios.get(`http://localhost:5000/category/${params.cat}`)
+              axios.get(
+                `https://bechakena-ten.vercel.app/category/${params.cat}`
+              )
             }
           />
         </Route>
@@ -78,7 +80,9 @@ export const router = createBrowserRouter(
         <Route
           path="/dashboard/payment/:pId"
           loader={({ params }) =>
-            fetch(`http://localhost:5000/getProductById/${params.pId}`)
+            fetch(
+              `https://bechakena-ten.vercel.app/getProductById/${params.pId}`
+            )
           }
           element={
             <BuyerRoute>

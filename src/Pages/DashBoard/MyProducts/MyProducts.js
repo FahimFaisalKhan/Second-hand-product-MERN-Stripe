@@ -17,7 +17,7 @@ const MyProducts = () => {
     queryKey: ["myProducts", user?.email],
     queryFn: async () => {
       const res = await axios.get(
-        `http://localhost:5000/myProducts?email=${user?.email}`,
+        `https://bechakena-ten.vercel.app/myProducts?email=${user?.email}`,
         {
           headers: {
             authorization: localStorage.getItem("accessToken"),
@@ -31,7 +31,7 @@ const MyProducts = () => {
 
   const handleDelete = (id) => {
     axios
-      .delete(`http://localhost:5000/deleteProduct?id=${id}`, {
+      .delete(`https://bechakena-ten.vercel.app/deleteProduct?id=${id}`, {
         headers: {
           authorization: localStorage.getItem("accessToken"),
         },
@@ -46,7 +46,7 @@ const MyProducts = () => {
 
   const handleAdvertise = (id) => {
     axios
-      .get(`http://localhost:5000/advertiseProduct?id=${id}`, {
+      .get(`https://bechakena-ten.vercel.app/advertiseProduct?id=${id}`, {
         headers: {
           authorization: localStorage.getItem("accessToken"),
         },

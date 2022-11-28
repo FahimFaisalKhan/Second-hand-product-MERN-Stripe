@@ -11,7 +11,7 @@ export const useToken = (email) => {
     setTokenLoading(true);
     if (email) {
       axios
-        .post("http://localhost:5000/jwt", { email: email })
+        .post("https://bechakena-ten.vercel.app/jwt", { email: email })
         .then((res) => {
           if (res.data.accessToken) {
             setTokenLoading(false);

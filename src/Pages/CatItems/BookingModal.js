@@ -56,7 +56,7 @@ const BookingModal = ({
     };
     try {
       axios
-        .post("http://localhost:5000/booking", bookingItem, {
+        .post("https://bechakena-ten.vercel.app/booking", bookingItem, {
           headers: {
             authorization: localStorage.getItem("accessToken"),
           },

@@ -76,7 +76,7 @@ const Signup = ({ processError, setUserEmail }) => {
   const addUserToDb = async (user) => {
     const { name, email, role } = user;
     try {
-      const res = await axios.post("http://localhost:5000/users", {
+      const res = await axios.post("https://bechakena-ten.vercel.app/users", {
         name,
         email,
         role,

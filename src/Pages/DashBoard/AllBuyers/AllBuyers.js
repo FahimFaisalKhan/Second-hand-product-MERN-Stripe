@@ -18,11 +18,14 @@ const AllBuyers = () => {
   } = useQuery({
     queryKey: ["user", "sellers"],
     queryFn: async () => {
-      const res = await axios.get("http://localhost:5000/user/buyers", {
-        headers: {
-          authorization: localStorage.getItem("accessToken"),
-        },
-      });
+      const res = await axios.get(
+        "https://bechakena-ten.vercel.app/user/buyers",
+        {
+          headers: {
+            authorization: localStorage.getItem("accessToken"),
+          },
+        }
+      );
 
       return res.data;
     },
@@ -34,7 +37,7 @@ const AllBuyers = () => {
     setDeliting(email);
     axios
       .delete(
-        "http://localhost:5000/user/delete",
+        "https://bechakena-ten.vercel.app/user/delete",
 
         {
           headers: {
