@@ -10,3 +10,6 @@ BechaKena
 • buyers , sellers and admins will see different options in their dashboard and will have diffrent authorization privileges.
 
 • Livi site Link: https://bechakena-auth.web.app/
+
+•aminEmail: admin.admin@email.com
+•adminPass: 789778
