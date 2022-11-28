@@ -9,4 +9,4 @@ BechaKena
 • In this project various roles of an user implemented
 • buyers , sellers and admins will see different options in their dashboard and will have diffrent authorization privileges.
 
-• Livi site Link:
+• Livi site Link: https://bechakena-auth.web.app/
