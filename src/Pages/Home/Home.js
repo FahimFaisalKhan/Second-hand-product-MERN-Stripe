@@ -10,8 +10,17 @@ import Spinner from "../../SharedComponents/Spinner/Spinner";
 import MostBookedProducts from "./MostBookedProducts/MostBookedProducts";
 import SectionDecoration from "../../SharedComponents/SectionDecoration/SectionDecoration";
 import AdvertisedItems from "./AdvertisedItems/AdvertisedItems";
+import { useContext } from "react";
+import { MyAuthContext } from "../../contexts/AuthContext";
+import { useEffect } from "react";
 
 const Home = () => {
+  const { loading } = useContext(MyAuthContext);
+
+  if (loading) {
+    return <Spinner size={24} color="primary" />;
+  }
+  console.log(loading);
   return (
     <div>
       <section className="flex flex-col  lg:flex-row min-h-[80vh] relative ">

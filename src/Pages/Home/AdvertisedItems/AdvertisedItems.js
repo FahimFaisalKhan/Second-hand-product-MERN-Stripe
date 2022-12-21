@@ -1,7 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React from "react";
+import React, { useEffect } from "react";
+import { useContext } from "react";
 import { Button, Card } from "react-daisyui";
+import { MyAuthContext } from "../../../contexts/AuthContext";
 import ProductCard from "../../../SharedComponents/ProductCard/ProductCard";
 import SectionDecoration from "../../../SharedComponents/SectionDecoration/SectionDecoration";
 import Spinner from "../../../SharedComponents/Spinner/Spinner";
@@ -17,10 +19,14 @@ const AdvertisedItems = () => {
       return res.data;
     },
   });
+  const { setLoading } = useContext(MyAuthContext);
 
-  if (isLoading) {
-    return <Spinner size={24} color="primary" />;
-  }
+  useEffect(() => {
+    if (!isLoading) {
+      setLoading(false);
+    }
+  }, [isLoading, setLoading]);
+
   if (advertisedProducts.length < 1) {
     return;
   }

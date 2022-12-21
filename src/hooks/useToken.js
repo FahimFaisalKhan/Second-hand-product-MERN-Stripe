@@ -1,10 +1,10 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { MyAuthContext } from "../contexts/AuthContext";
 
 export const useToken = (email) => {
-  const [tokenLoading, setTokenLoading] = useState(false);
-
   const [token, setToken] = useState("");
+  const { tokenLoading, setTokenLoading } = useContext(MyAuthContext);
   console.log(email);
 
   useEffect(() => {

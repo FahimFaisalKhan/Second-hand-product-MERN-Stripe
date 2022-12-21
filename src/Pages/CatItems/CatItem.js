@@ -10,10 +10,11 @@ import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { useRole } from "../../hooks/useRole";
 import { ImLocation2 } from "react-icons/im";
+import { useEffect } from "react";
 const CatItem = ({ prod }) => {
   const today = new Date();
 
-  const { user, loading } = useContext(MyAuthContext);
+  const { user, setLoading } = useContext(MyAuthContext);
   const [visible, setVisible] = useState(false);
   const [itemToBook, setItemToBook] = useState(null);
   const { role, roleLoading } = useRole(user?.email);
@@ -103,93 +104,94 @@ const CatItem = ({ prod }) => {
         toast.error("Something went wrong! Please try again.");
       });
   };
+
   if (
     isLoading ||
     bookedProductsIdsLoading ||
-    loading ||
     wishedProductsIdsLoading ||
     roleLoading
   ) {
     return <Spinner size={24} color="primary" />;
-  }
-  return (
-    <>
-      <Hero key={_id} className="w-full bg-success mb-5 rounded-lg">
-        <Hero.Content className="w-full flex-col lg:flex-row  justify-between py-32">
-          <img
-            alt=""
-            src={coverImage}
-            className="max-w-sm rounded-lg shadow-2xl w-[40%]"
-          />
-          <div className="lg:w-[60%]">
-            <h1 className="text-5xl font-bold">{name}</h1>
-            <div className="py-6">
-              <p className="flex items-center gap-2">
-                <ImLocation2 color="#00296b" /> <span>{location}</span>
-              </p>
-              <p>Resale Price: ${price}</p>
-              <p>Original Price: ${OriginalPrice}</p>
-              <p>
-                Years of use: {today.getFullYear() - parseInt(yearOfPurchase)}
-              </p>
-              <p>Posted on: {postDate}.</p>
-              <div className="relative">
-                <p className="flex justify-start items-center gap-1">
-                  <span>Seller:</span>
-                  <span>
-                    {seller.verified && <MdVerified color="#0d47a1" />}
-                  </span>
-                  <span>{seller.name}.</span>
+  } else {
+    return (
+      <>
+        <Hero key={_id} className="w-full bg-success mb-5 rounded-lg">
+          <Hero.Content className="w-full flex-col lg:flex-row  justify-between py-32">
+            <img
+              alt=""
+              src={coverImage}
+              className="max-w-sm rounded-lg shadow-2xl w-[40%]"
+            />
+            <div className="lg:w-[60%]">
+              <h1 className="text-5xl font-bold">{name}</h1>
+              <div className="py-6">
+                <p className="flex items-center gap-2">
+                  <ImLocation2 color="#00296b" /> <span>{location}</span>
                 </p>
+                <p>Resale Price: ${price}</p>
+                <p>Original Price: ${OriginalPrice}</p>
+                <p>
+                  Years of use: {today.getFullYear() - parseInt(yearOfPurchase)}
+                </p>
+                <p>Posted on: {postDate}.</p>
+                <div className="relative">
+                  <p className="flex justify-start items-center gap-1">
+                    <span>Seller:</span>
+                    <span>
+                      {seller.verified && <MdVerified color="#0d47a1" />}
+                    </span>
+                    <span>{seller.name}.</span>
+                  </p>
+                </div>
+              </div>
+              <div className="flex justify-between flex-col lg:flex-row gap-5">
+                <Button
+                  onClick={() => {
+                    handleWishList(_id);
+                  }}
+                  className="text-base-100 capitalize"
+                  color="secondary"
+                  disabled={wishedProductsIds.includes(_id)}
+                >
+                  {wishedProductsIds.includes(_id)
+                    ? "Wished"
+                    : "Add to wish list"}
+                </Button>
+                <Button
+                  onClick={() => {
+                    toggleVisible();
+                    setItemToBook(prod);
+                  }}
+                  className="text-base-100 capitalize"
+                  color="primary"
+                  disabled={bookedProductsIds.includes(_id)}
+                >
+                  {bookedProductsIds.includes(_id) ? "Booked" : "Book Now"}
+                </Button>
+                <Link
+                  to={`/dashboard/payment/${_id}`}
+                  className="btn btn-warning text-base-100 capitalize"
+                  disabled={role !== "buyer"}
+                >
+                  Purchase
+                </Link>
               </div>
             </div>
-            <div className="flex justify-between flex-col lg:flex-row gap-5">
-              <Button
-                onClick={() => {
-                  handleWishList(_id);
-                }}
-                className="text-base-100 capitalize"
-                color="secondary"
-                disabled={wishedProductsIds.includes(_id)}
-              >
-                {wishedProductsIds.includes(_id)
-                  ? "Wished"
-                  : "Add to wish list"}
-              </Button>
-              <Button
-                onClick={() => {
-                  toggleVisible();
-                  setItemToBook(prod);
-                }}
-                className="text-base-100 capitalize"
-                color="primary"
-                disabled={bookedProductsIds.includes(_id)}
-              >
-                {bookedProductsIds.includes(_id) ? "Booked" : "Book Now"}
-              </Button>
-              <Link
-                to={`/dashboard/payment/${_id}`}
-                className="btn btn-warning text-base-100 capitalize"
-                disabled={role !== "buyer"}
-              >
-                Purchase
-              </Link>
-            </div>
-          </div>
-        </Hero.Content>
-      </Hero>
+          </Hero.Content>
+        </Hero>
 
-      {itemToBook && (
-        <BookingModal
-          itemToBook={itemToBook}
-          setItemToBook={setItemToBook}
-          visible={visible}
-          toggleVisible={toggleVisible}
-          refetchBookBtn={refetchBookBtn}
-        />
-      )}
-    </>
-  );
+        {itemToBook && (
+          <BookingModal
+            itemToBook={itemToBook}
+            setItemToBook={setItemToBook}
+            visible={visible}
+            toggleVisible={toggleVisible}
+            refetchBookBtn={refetchBookBtn}
+          />
+        )}
+      </>
+    );
+  }
 };
 
 export default CatItem;

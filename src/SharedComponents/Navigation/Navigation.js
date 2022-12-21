@@ -8,7 +8,7 @@ import { useRole } from "../../hooks/useRole";
 import shoppingBag from "../../Static/Images/shopping-bag.png";
 
 const Navigation = ({ showDashBoardHam, setDashHidden, dashHidden }) => {
-  const { user, logOut, loading } = useContext(MyAuthContext);
+  const { user, logOut, loading, tokenLoading } = useContext(MyAuthContext);
   const { role, roleLoading } = useRole(user?.email);
   const handleLogOut = () => {
     logOut().then(() => {
@@ -33,7 +33,7 @@ const Navigation = ({ showDashBoardHam, setDashHidden, dashHidden }) => {
         </>
       )}
 
-      {user && (
+      {user && !tokenLoading && (
         <>
           <Menu.Item disabled={roleLoading || loading}>
             {role === "buyer" ? (

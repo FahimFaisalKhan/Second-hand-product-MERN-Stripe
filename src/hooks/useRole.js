@@ -12,7 +12,11 @@ export const useRole = (email) => {
       const uri = `https://bechakena-ten.vercel.app/user/getRole?email=${email}`;
 
       axios
-        .get(uri)
+        .get(uri, {
+          headers: {
+            authorization: localStorage.getItem("accessToken"),
+          },
+        })
 
         .then((res) => {
           if (res.data.role) {

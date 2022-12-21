@@ -3,8 +3,12 @@ import SectionDecoration from "../../../SharedComponents/SectionDecoration/Secti
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Spinner from "../../../SharedComponents/Spinner/Spinner";
+import { useContext } from "react";
+import { MyAuthContext } from "../../../contexts/AuthContext";
+import { useEffect } from "react";
 
 const MostBookedProducts = () => {
+  const { setLoading } = useContext(MyAuthContext);
   const { data: popProducts = [], isLoading } = useQuery({
     queryKey: ["mostBookedProducts"],
     queryFn: async () => {
@@ -14,9 +18,13 @@ const MostBookedProducts = () => {
       return res.data;
     },
   });
-  if (isLoading) {
-    return <Spinner size={24} color="primary" />;
-  }
+
+  useEffect(() => {
+    if (!isLoading) {
+      setLoading(false);
+    }
+  }, [isLoading, setLoading]);
+
   return (
     <div className=" bg-info mt-32 relative py-12 px-3">
       <SectionDecoration />

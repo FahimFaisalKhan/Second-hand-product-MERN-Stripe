@@ -19,6 +19,7 @@ const AuthContext = ({ children }) => {
   const gProvider = new GoogleAuthProvider();
 
   const [loading, setLoading] = useState(true);
+  const [tokenLoading, setTokenLoading] = useState(false);
   const [user, setUser] = useState(null);
   const createUser = (email, pass) => {
     setLoading(true);
@@ -65,6 +66,8 @@ const AuthContext = ({ children }) => {
           googleSignIn,
           loading,
           setLoading,
+          tokenLoading,
+          setTokenLoading,
         }}
       >
         {children}
