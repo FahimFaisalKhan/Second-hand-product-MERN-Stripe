@@ -13,6 +13,8 @@ import AdvertisedItems from "./AdvertisedItems/AdvertisedItems";
 import { useContext } from "react";
 import { MyAuthContext } from "../../contexts/AuthContext";
 import { useEffect } from "react";
+import Carousel from "./Carousel/Carousel";
+import Accordion from "./Accordion/Accordion";
 
 const Home = () => {
   const { loading } = useContext(MyAuthContext);
@@ -20,7 +22,7 @@ const Home = () => {
   if (loading) {
     return <Spinner size={24} color="primary" />;
   }
-  console.log(loading);
+
   return (
     <div>
       <section className="flex flex-col  lg:flex-row min-h-[80vh] relative ">
@@ -29,7 +31,7 @@ const Home = () => {
           <h1 className="font-serif text-5xl ">
             Feel Authentic Peace Of Shopping
           </h1>
-          <Button className="bg-base-content text-base-100 hover:text-base-content w-44">
+          <Button className="bg-warning text-base-100 hover:text-base-content w-44">
             Shop Now
           </Button>
         </div>
@@ -53,11 +55,18 @@ const Home = () => {
         </div>
         <SectionDecoration />
       </section>
+
+      <section className="relative ">
+        <Carousel />
+      </section>
       <section className="relative">
         <MostBookedProducts />
       </section>
       <section className="relative">
         <AdvertisedItems />
+      </section>
+      <section className="my-32">
+        <Accordion />
       </section>
     </div>
   );

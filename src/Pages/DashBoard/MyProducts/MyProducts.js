@@ -58,8 +58,6 @@ const MyProducts = () => {
         },
       })
       .then((res) => {
-        console.log(res.data);
-
         if (res.data.modifiedCount > 0) {
           toast.success("Advertised Successfully!");
           setAdverTising(false);

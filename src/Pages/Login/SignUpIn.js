@@ -17,7 +17,6 @@ const SignUpIn = () => {
 
   useEffect(() => {
     if (token) {
-      console.log(token);
       localStorage.setItem("accessToken", token);
       navigate(redirectPath, { replace: true });
     }
@@ -41,7 +40,7 @@ const SignUpIn = () => {
         <Tabs.Tab
           className={`text-xl ${
             tabValue === "login" &&
-            "underline underline-offset-8 decoration-4 text-primary"
+            "underline underline-offset-8 decoration-4 text-warning"
           }`}
           value={"login"}
         >
@@ -50,7 +49,7 @@ const SignUpIn = () => {
         <Tabs.Tab
           className={`text-xl ${
             tabValue === "signup" &&
-            "underline underline-offset-8 decoration-4 text-primary"
+            "underline underline-offset-8 decoration-4 text-warning"
           }`}
           value={"signup"}
         >

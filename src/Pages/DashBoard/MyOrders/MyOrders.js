@@ -12,12 +12,12 @@ const MyOrders = () => {
   const {
     data: myOrders = [],
     isLoading,
-    refetch,
+    refetch: bookingRefetch,
   } = useQuery({
     queryKey: ["booking", user?.email],
     queryFn: async () => {
       const res = await axios.get(
-        `https://bechakena-ten.vercel.app/booking?email=${user?.email}`,
+        `https://bechakena-fahimfaisalkhan.vercel.app/booking?email=${user?.email}`,
         {
           headers: {
             authorization: localStorage.getItem("accessToken"),
@@ -45,7 +45,11 @@ const MyOrders = () => {
 
       <section className="grid grid-cols-1 gap-5 mb-24">
         {myOrders.map((order) => (
-          <OrderCard key={order._id} order={order} />
+          <OrderCard
+            key={order._id}
+            order={order}
+            bookingRefetch={bookingRefetch}
+          />
         ))}
       </section>
     </div>

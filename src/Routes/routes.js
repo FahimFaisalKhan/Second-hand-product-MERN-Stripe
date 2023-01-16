@@ -34,6 +34,7 @@ export const router = createBrowserRouter(
         <Route path="/" element={<HomeLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/blog" element={<Blog />} />
+
           <Route
             path="/category/:cat"
             element={
@@ -69,6 +70,7 @@ export const router = createBrowserRouter(
             </BuyerRoute>
           }
         />
+
         <Route
           path="/dashboard/mywishlist"
           element={

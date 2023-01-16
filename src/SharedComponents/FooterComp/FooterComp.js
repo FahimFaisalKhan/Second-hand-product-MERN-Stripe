@@ -7,7 +7,7 @@ const FooterComp = () => {
   const year = new Date().getFullYear();
   return (
     <div>
-      <Footer className="p-10 bg-primary text-base-100 justify-around">
+      <Footer className="p-10 bg-warning text-base-100 justify-around">
         <div>
           <img src={bag} className="w-4/12" alt="" />
           <p>

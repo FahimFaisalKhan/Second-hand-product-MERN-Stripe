@@ -74,8 +74,6 @@ const AllSellers = () => {
         }
       )
       .then((res) => {
-        console.log(res.data);
-
         if (res.data.acknowledged) {
           setVerifying(false);
           refetch();

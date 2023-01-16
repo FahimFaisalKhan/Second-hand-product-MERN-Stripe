@@ -12,7 +12,6 @@ const PrivateRoute = ({ children }) => {
     return <Spinner size={24} color="primary" />;
   }
   if (!user) {
-    console.log("triggered private");
     return (
       <Navigate to={"/signinup"} state={{ form: location }} replace={true} />
     );

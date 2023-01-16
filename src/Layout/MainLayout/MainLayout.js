@@ -8,9 +8,8 @@ import CatNav from "../../Pages/Home/CatNav/CatNav";
 const MainLayout = () => {
   return (
     <div>
+      <Navigation showDashBoardHam={false} />
       <div className="container mx-auto min-h-[100vh]">
-        <Navigation showDashBoardHam={false} />
-
         <Outlet />
       </div>
 

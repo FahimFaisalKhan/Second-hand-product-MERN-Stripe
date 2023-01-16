@@ -93,7 +93,6 @@ const CatItem = ({ prod }) => {
         customerEmail,
       })
       .then((res) => {
-        console.log(res.data);
         if (res.data.acknowledged) {
           toast.success("Product added to wish list");
           refetchWishBtn();

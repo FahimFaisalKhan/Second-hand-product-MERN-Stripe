@@ -16,13 +16,13 @@ const CatNav = () => {
   });
   if (isLoading) {
     return (
-      <div className="text-center text-lg font-medium text-primary">
+      <div className="text-center text-lg font-medium text-warning">
         loading...
       </div>
     );
   }
   return (
-    <div className=" flex justify-between bg-neutral rounded-sm text-lg font-medium ">
+    <div className=" flex justify-between bg-info rounded-sm text-lg font-medium ">
       <ul className="menu menu-horizontal p-0 w-full justify-around">
         {cats.map((cat, index) => {
           return (

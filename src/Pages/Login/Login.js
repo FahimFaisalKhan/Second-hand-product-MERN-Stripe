@@ -24,8 +24,6 @@ const Login = ({ redirectPath, processError, setUserEmail }) => {
 
     loginUser(email, password)
       .then((result) => {
-        console.log(result.user);
-
         setUserEmail(result.user.email);
       })
       .then(() => {
@@ -68,9 +66,8 @@ const Login = ({ redirectPath, processError, setUserEmail }) => {
           role,
         }
       );
-      console.log(res.data);
+
       if (res.data.acknowledged) {
-        console.log(res.data.acknowledged);
         setLoading(false);
         toast.success("User Logged in Successfully");
         setUserEmail(email);
@@ -131,7 +128,7 @@ const Login = ({ redirectPath, processError, setUserEmail }) => {
               <div className="form-control mt-6">
                 <button
                   type="submit"
-                  className="btn btn-primary relative text-base-100"
+                  className="btn btn-warning relative text-base-100"
                 >
                   {loading ? <Spinner size={5} color="base-100" /> : "Login"}
                 </button>
@@ -139,7 +136,7 @@ const Login = ({ redirectPath, processError, setUserEmail }) => {
             </form>
             <Button
               onClick={handleGoogleSignIn}
-              className="bg-success text-primary hover:text-base-100  mt-3  border-none w-10/12 mx-auto relative"
+              className="bg-success text-warning hover:text-base-100  mt-3  border-none w-10/12 mx-auto relative"
               type="text"
             >
               {loading ? (

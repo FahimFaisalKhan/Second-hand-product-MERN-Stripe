@@ -2,18 +2,18 @@ import React from "react";
 
 const Blog = () => {
   return (
-    <section class="container mx-auto glass lg:h-screen mt-10 rounded-lg flex flex-col items-center justify-center text-neutral-content gap-y-5">
+    <section className="container mx-auto glass lg:h-screen mt-10 rounded-lg flex flex-col items-center justify-center text-neutral-content gap-y-5">
       <div
         tabindex="0"
-        class="collapse collapse-arrow border border-primary bg-neutral rounded-box md:w-8/12"
+        className="collapse collapse-arrow border border-warning bg-neutral rounded-box md:w-8/12"
       >
-        <div class="collapse-title text-2xl font-medium">
+        <div className="collapse-title text-2xl font-medium">
           ♦ What are the different ways to manage a state in a React
           application?
         </div>
-        <div class="collapse-content font-semibold">
-          <p class="text-2xl">Managing react states</p>
-          <p class="bg-neutral-focus rounded-lg p-4 mt-2 text-xl">
+        <div className="collapse-content font-semibold">
+          <p className="text-2xl">Managing react states</p>
+          <p className="bg-neutral-focus rounded-lg p-4 mt-2 text-xl">
             Local (UI) state - Local state is data we manage in one or another
             component. Local state is most often managed in React using the
             useState hook. For example, local state would be needed to show or
@@ -44,14 +44,14 @@ const Blog = () => {
       </div>
       <div
         tabindex="0"
-        class="collapse collapse-arrow border border-primary bg-neutral rounded-box md:w-8/12"
+        className="collapse collapse-arrow border border-warning bg-neutral rounded-box md:w-8/12"
       >
-        <div class="collapse-title text-2xl font-medium">
+        <div className="collapse-title text-2xl font-medium">
           ♦ How does prototypical inheritance work?
         </div>
-        <div class="collapse-content font-semibold">
-          <p class="text-2xl">Prototypical inheritance</p>
-          <p class="bg-neutral-focus rounded-lg p-4 mt-2 text-xl">
+        <div className="collapse-content font-semibold">
+          <p className="text-2xl">Prototypical inheritance</p>
+          <p className="bg-neutral-focus rounded-lg p-4 mt-2 text-xl">
             Every object with its methods and properties contains an internal
             and hidden property known as [[Prototype]]. The Prototypal
             Inheritance is a feature in javascript used to add methods and
@@ -64,14 +64,14 @@ const Blog = () => {
       </div>
       <div
         tabindex="0"
-        class="collapse collapse-arrow border border-primary bg-neutral rounded-box md:w-8/12"
+        className="collapse collapse-arrow border border-warning bg-neutral rounded-box md:w-8/12"
       >
-        <div class="collapse-title text-2xl font-medium">
+        <div className="collapse-title text-2xl font-medium">
           ♦ What is a unit test? Why should we write unit tests?
         </div>
-        <div class="collapse-content font-semibold">
-          <p class="text-2xl">Unit testing</p>
-          <p class="bg-neutral-focus rounded-lg p-4 mt-2 text-xl">
+        <div className="collapse-content font-semibold">
+          <p className="text-2xl">Unit testing</p>
+          <p className="bg-neutral-focus rounded-lg p-4 mt-2 text-xl">
             The main objective of unit testing is to isolate written code to
             test and determine if it works as intended. Unit testing is an
             important step in the development process, because if done
@@ -82,14 +82,14 @@ const Blog = () => {
       </div>
       <div
         tabindex="0"
-        class="collapse collapse-arrow border border-primary bg-neutral rounded-box md:w-8/12"
+        className="collapse collapse-arrow border border-warning bg-neutral rounded-box md:w-8/12"
       >
-        <div class="collapse-title text-2xl font-medium">
+        <div className="collapse-title text-2xl font-medium">
           ♦ React vs. Angular vs. Vue?
         </div>
-        <div class="collapse-content font-semibold">
-          <p class="text-2xl">React-Angular-Vue</p>
-          <p class="bg-neutral-focus rounded-lg p-4 mt-2 text-xl">
+        <div className="collapse-content font-semibold">
+          <p className="text-2xl">React-Angular-Vue</p>
+          <p className="bg-neutral-focus rounded-lg p-4 mt-2 text-xl">
             Angular: <br />
             Angular has a steep learning curve, considering it is a complete
             solution, and mastering Angular requires you to learn associated

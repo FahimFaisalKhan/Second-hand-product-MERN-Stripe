@@ -62,8 +62,6 @@ const BookingModal = ({
           },
         })
         .then((res) => {
-          console.log(res.data);
-
           if (res.data.acknowledged) {
             toast.success("Item booked successfully ");
             setSubmitLoading(false);

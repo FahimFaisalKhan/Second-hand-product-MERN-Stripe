@@ -172,7 +172,7 @@ const Signup = ({ processError, setUserEmail }) => {
                     {...register("role")}
                     type="radio"
                     value="buyer"
-                    className="radio checked:bg-primary"
+                    className="radio checked:bg-warning"
                   />
                 </label>
                 <label className="label cursor-pointer justify-start items-center gap-3">
@@ -181,12 +181,12 @@ const Signup = ({ processError, setUserEmail }) => {
                     {...register("role")}
                     type="radio"
                     value="seller"
-                    className="radio checked:bg-primary"
+                    className="radio checked:bg-warning"
                   />
                 </label>
               </div>
               <div className="form-control mt-6">
-                <button type="submit" className="btn btn-primary relative">
+                <button type="submit" className="btn btn-warning relative">
                   {userLoading ? (
                     <Spinner size={5} color="base-100" />
                   ) : (

@@ -25,7 +25,6 @@ const AddProduct = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = async (data) => {
-    console.log(data);
     setAddingProduct(true);
     console.log(coverFile, additionalFile1, user.displayName);
 
@@ -66,8 +65,6 @@ const AddProduct = () => {
       postDate,
       sellerEmail: user?.email,
     };
-
-    console.log(product.additionalImages[0]);
 
     (async () => {
       try {

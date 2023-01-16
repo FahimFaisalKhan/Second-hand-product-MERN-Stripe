@@ -12,9 +12,8 @@ const SellerRoute = ({ children }) => {
   if (loading || roleLoading) {
     return <Spinner size={24} color="primary" />;
   }
-  console.log(user, role);
+
   if (!user || role !== "seller") {
-    console.log("triggered seller");
     return (
       <Navigate to={"/signinup"} state={{ from: location }} replace={true} />
     );

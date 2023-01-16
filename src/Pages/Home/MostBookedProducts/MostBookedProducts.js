@@ -7,6 +7,8 @@ import { useContext } from "react";
 import { MyAuthContext } from "../../../contexts/AuthContext";
 import { useEffect } from "react";
 
+import CartBtn from "../../../SharedComponents/CartBtn/CartBtn";
+
 const MostBookedProducts = () => {
   const { setLoading } = useContext(MyAuthContext);
   const { data: popProducts = [], isLoading } = useQuery({
@@ -37,16 +39,18 @@ const MostBookedProducts = () => {
           return (
             <div
               key={_id}
-              className={`card  bg-success shadow-xl h-[28rem] ${
-                (index + 1) % 2 === 0 ? "sm:h-[33rem]" : "sm:h-[28rem]"
-              }`}
+              className="card rounded-sm  bg-success shadow-xl
+                sm:h-[24rem] flex  flex-col"
             >
-              <figure className=" h-[70%]">
-                <img src={coverImage} alt="Shoes" className="rounded-xl" />
-              </figure>
-              <div className="card-body items-center text-center h-[30%]">
-                <h2 className="card-title">{name}</h2>
-                <p>{price}</p>
+              <div className="  flex items-center justify-center h-[13rem] bg-white max-h-[13rem] overflow-hidden">
+                <img src={coverImage} alt="Shoes" className=" max-h-[100%]" />
+              </div>
+              <div className="card-body  text-center grow flex flex-col justify-between items-center">
+                <h2 className="mt-2 card-title text-gray-800">{name}</h2>
+                <div className="flex justify-between items-center w-full">
+                  <p className="grow-0 text-xl font-bold">$ {price}</p>
+                  <CartBtn size={25} product={prod} />
+                </div>
               </div>
             </div>
           );

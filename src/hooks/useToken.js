@@ -24,7 +24,7 @@ export const useToken = (email) => {
           console.log(err.message);
         });
     }
-  }, [email]);
+  }, [email, setTokenLoading]);
 
   return { token, tokenLoading };
 };
